@@ -666,7 +666,9 @@ namespace image
 		out->allocate(ow, oh, ic);
 
 		int outpos = 0;
+		//每一行的元素个数
 		int rowstride = iw * ic;
+		//遍历缩放之后图像的每一个像素
 		for (int y = 0; y < oh; ++y)
 		{
 			int irow1 = y * 2 * rowstride;

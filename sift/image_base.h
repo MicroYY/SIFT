@@ -70,6 +70,7 @@ namespace image {
 
 	};
 
+
 	inline
 		ImageBase::ImageBase()
 		:w(0), h(0), c(0)
@@ -86,6 +87,7 @@ namespace image {
 	{
 		return ImageBase::Ptr(new ImageBase(*this));
 	}
+
 
 	inline int
 		ImageBase::width() const

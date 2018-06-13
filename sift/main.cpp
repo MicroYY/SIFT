@@ -22,8 +22,10 @@ int main(int argc,char** argv)
 	Sift sift(conf);
 
 
-	image::ImageBase::Ptr image = image::load_png_file(image_path);
-	image::ByteImage::Ptr img = std::dynamic_pointer_cast<image::ByteImage>(image);
+	/*image::ImageBase::Ptr image = image::load_file(image_path);
+	image::ByteImage::Ptr img = std::dynamic_pointer_cast<image::ByteImage>(image);*/
+	image::ByteImage::Ptr img = image::load_file(image_path);
+	
 
 	while (img->width() * img->height() > 6000000)
 		img = image::rescale_half_size<uint8_t>(img);
@@ -35,5 +37,5 @@ int main(int argc,char** argv)
 	std::sort(descr.begin(), descr.end(), compare_scale<Sift::Descriptor>);
 
 
-	return 0;
+ 	return 0;
 }

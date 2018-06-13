@@ -27,7 +27,7 @@
 
 namespace image
 {
-
+	
 	ByteImage::Ptr
 		load_file(std::string const& filename)
 	{
@@ -67,66 +67,64 @@ namespace image
 
 #ifndef NO_PNG_SUPPORT
 
-	namespace
+	void
+		load_png_headers_intern(FILE* fp, ImageHeaders* headers,
+			png_structp* png, png_infop* png_info)
 	{
-		void
-			load_png_headers_intern(FILE* fp, ImageHeaders* headers,
-				png_structp* png, png_infop* png_info)
+		/* Identify the PNG signature. */
+		png_byte signature[8];
+		if (std::fread(signature, 1, 8, fp) != 8)
 		{
-			/* Identify the PNG signature. */
-			png_byte signature[8];
-			if (std::fread(signature, 1, 8, fp) != 8)
-			{
-				std::fclose(fp);
-				throw std::exception("PNG signature could not be read");
-			}
-			if (png_sig_cmp(signature, 0, 8) != 0)
-			{
-				std::fclose(fp);
-				throw std::exception("PNG signature did not match");
-			}
+			std::fclose(fp);
+			throw std::exception("PNG signature could not be read");
+		}
+		if (png_sig_cmp(signature, 0, 8) != 0)
+		{
+			std::fclose(fp);
+			throw std::exception("PNG signature did not match");
+		}
 
-			/* Initialize PNG structures. */
-			*png = png_create_read_struct(PNG_LIBPNG_VER_STRING,
-				nullptr, nullptr, nullptr);
-			if (!*png)
-			{
-				std::fclose(fp);
-				throw std::exception("Out of memory");
-			}
+		/* Initialize PNG structures. */
+		*png = png_create_read_struct(PNG_LIBPNG_VER_STRING,
+			nullptr, nullptr, nullptr);
+		if (!*png)
+		{
+			std::fclose(fp);
+			throw std::exception("Out of memory");
+		}
 
-			*png_info = png_create_info_struct(*png);
-			if (!*png_info)
-			{
-				png_destroy_read_struct(png, nullptr, nullptr);
-				std::fclose(fp);
-				throw std::exception("Out of memory");
-			}
+		*png_info = png_create_info_struct(*png);
+		if (!*png_info)
+		{
+			png_destroy_read_struct(png, nullptr, nullptr);
+			std::fclose(fp);
+			throw std::exception("Out of memory");
+		}
 
-			/* Init PNG file IO */
-			png_init_io(*png, fp);
-			png_set_sig_bytes(*png, 8);
+		/* Init PNG file IO */
+		png_init_io(*png, fp);
+		png_set_sig_bytes(*png, 8);
 
-			/* Read PNG header info. */
-			png_read_info(*png, *png_info);
+		/* Read PNG header info. */
+		png_read_info(*png, *png_info);
 
-			headers->width = png_get_image_width(*png, *png_info);
-			headers->height = png_get_image_height(*png, *png_info);
-			headers->channels = png_get_channels(*png, *png_info);
+		headers->width = png_get_image_width(*png, *png_info);
+		headers->height = png_get_image_height(*png, *png_info);
+		headers->channels = png_get_channels(*png, *png_info);
 
-			int const bit_depth = png_get_bit_depth(*png, *png_info);
-			if (bit_depth <= 8)
-				headers->type = IMAGE_TYPE_UINT8;
-			else if (bit_depth == 16)
-				headers->type = IMAGE_TYPE_UINT16;
-			else
-			{
-				png_destroy_read_struct(png, png_info, nullptr);
-				std::fclose(fp);
-				throw std::exception("PNG with unknown bit depth");
-			}
+		int const bit_depth = png_get_bit_depth(*png, *png_info);
+		if (bit_depth <= 8)
+			headers->type = IMAGE_TYPE_UINT8;
+		else if (bit_depth == 16)
+			headers->type = IMAGE_TYPE_UINT16;
+		else
+		{
+			png_destroy_read_struct(png, png_info, nullptr);
+			std::fclose(fp);
+			throw std::exception("PNG with unknown bit depth");
 		}
 	}
+
 
 	ByteImage::Ptr
 		load_png_file(std::string const& filename)
@@ -182,8 +180,6 @@ namespace image
 
 		return image;
 
-
-
 	}
 
 
@@ -195,8 +191,9 @@ namespace image
 	void
 		jpg_error_handler(j_common_ptr /*cinfo*/)
 	{
-		throw std::exception("JPEG format nor recognized"); 
+		throw std::exception("JPEG format nor recognized");
 	}
+
 
 	void
 		jpg_message_handler(j_common_ptr /*cinfo*/, int msg_level)
@@ -205,7 +202,8 @@ namespace image
 			throw std::exception("JPEG data corrupt");
 	}
 
-		ByteImage::Ptr
+
+	ByteImage::Ptr
 		load_jpg_file(std::string const& filename, std::string* exif)
 	{
 		FILE* fp = std::fopen(filename.c_str(), "rb");

@@ -213,7 +213,7 @@ Sift::add_octave(image::FloatImage::ConstPtr image, float has_sigma, float targe
 	float const k = std::pow(2.0f, 1.0f / this->config.num_samples_per_octave);
 	sigma = target_sigma;
 
-	//在这一组octave创建生下来的s+2个高斯尺度空间
+	//在这一组octave创建剩余的s+2个高斯尺度空间
 	for (int i = 1; i < this->config.num_samples_per_octave + 3; ++i)
 	{
 		//要求达到的高斯模糊 sigmak = sigma * k
@@ -383,15 +383,15 @@ Sift::keypoint_localization()
 			// Dx Dy Ds 一阶偏导
 			Dx = (AT(1, 1) - AT(1, -1)) * 0.5f;
 			Dy = (AT(1, w) - AT(1, -w)) * 0.5f;
-			Ds = (AT(2, 0) - AT(0, 0)) * 0.5f;
+			Ds = (AT(2, 0) - AT(0, 0))  * 0.5f;
 
 			Dxx = AT(1, 1) + AT(1, -1) - 2.0f * AT(1, 0);
 			Dyy = AT(1, w) + AT(1, -w) - 2.0f * AT(1, 0);
-			Dss = AT(2, 0) + AT(0, 0) - 2.0f * AT(1, 0);
+			Dss = AT(2, 0) + AT(0, 0)  - 2.0f * AT(1, 0);
 
-			Dxy = (AT(1, 1 + w) + AT(1, -1 - w) - AT(1, -1 + w) - AT(1, 1 - w))*0.25f;
-			Dxs = (AT(2, 1) + AT(0, -1) - AT(2, -1) - AT(0, 1))*0.25f;
-			Dys = (AT(2, w) + AT(0, -w) - AT(2, -w) - AT(0, w))*0.25f;
+			Dxy = (AT(1, 1 + w) + AT(1, -1 - w) - AT(1, -1 + w) - AT(1, 1 - w)) * 0.25f;
+			Dxs = (AT(2, 1)     + AT(0, -1)     - AT(2, -1)     - AT(0, 1))     * 0.25f;
+			Dys = (AT(2, w)     + AT(0, -w)     - AT(2, -w)     - AT(0, w))     * 0.25f;
 
 			//Hessian矩阵A
 			math::Matrix3f A;
@@ -595,7 +595,7 @@ Sift::generate_grad_ori_images(Octave* octave)
 				float p1x = img->at(image_iter + 1);
 				float dx = 0.5f * (p1x - m1x);
 
-				//TODO: why width?????
+				
 				float m1y = img->at(image_iter - width);
 				float p1y = img->at(image_iter + width);
 				float dy = 0.5f * (p1y - m1y);
@@ -811,16 +811,19 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 			* of the first bin center in the three dimensional histogram.
 			*/
 			float binoff = (float)(PXB - 1) / 2.0f;
+			//像素在窗口中的实际位置 x y 
 			float binx = (coso * winx + sino * winy) / binsize + binoff;
 			float biny = (-sino * winx + coso * winy) / binsize + binoff;
+			//像素实际方向
 			float bint = theta * (float)OHB / (2.0f * MATH_PI) - 0.5f;
 
 			//计算圆形窗口比重
+			//按 0.5d 加权
 			float gaussian_sigma = 0.5f*(float)PXB;
 			float gaussian_weight = math::gaussian_xx
 			(MATH_POW2(binx - binoff) + MATH_POW2(biny - binoff),
 				gaussian_sigma);
-
+			//加权模值
 			float contrib = mod * gaussian_weight;
 
 			/*
@@ -828,10 +831,13 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 			* Each sample is inserted into 8 bins. Some of these bins may
 			* not exist, because the sample is outside the keypoint window.
 			*/
+			//邻近的 x y 即行和列索引
 			int bxi[2] = { (int)std::floor(binx),(int)std::floor(binx) + 1 };
 			int byi[2] = { (int)std::floor(biny),(int)std::floor(biny) + 1 };
+			//邻近的两个方向
 			int bti[2] = { (int)std::floor(bint),(int)std::floor(bint) + 1 };
 
+			//x y 方向 三个距离影响权重 
 			float weights[3][2] = {
 				{ (float)bxi[1] - binx, 1.0f - ((float)bxi[1] - binx) },
 				{ (float)byi[1] - biny, 1.0f - ((float)byi[1] - biny) },
@@ -843,18 +849,27 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 				bti[0] += OHB;
 			if (bti[1] >= OHB)
 				bti[1] -= OHB;
-
+			
 			/* Iterate the 8 bins and add weighted contrib to each. */
+			//即相邻的 x y 方向 共8个 bin 
+			//迭代的实际上是该点影响的bin
+			// xstride 每一行的偏移
+			// ystride 
 			int const xstride = OHB;
 			int const ystride = OHB * PXB;
 			for (int y = 0; y < 2; ++y)
 				for (int x = 0; x < 2; ++x)
 					for (int t = 0; t < 2; ++t)
 					{
+						//超出窗口
 						if (bxi[x] < 0 || bxi[x] >= PXB
 							|| byi[y] < 0 || byi[y] >= PXB)
 							continue;
 
+						//bxi[x] x的索引
+						//byi[y] y的索引
+						//bti[t] 方向的索引
+						//idx种子方向的索引 [0,127]
 						int idx = bti[t] + bxi[x] * xstride + byi[y] * ystride;
 						desc.data[idx] += contrib * weights[0][x]
 							* weights[1][y] * weights[2][t];

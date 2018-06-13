@@ -46,4 +46,6 @@ namespace image
 	ByteImage::Ptr
 		load_jpg_file(std::string const& filename, std::string* exif = nullptr);
 
+	
+
 }
