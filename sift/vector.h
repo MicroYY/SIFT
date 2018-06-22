@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include <algorithm>
@@ -62,7 +62,7 @@ namespace math
 	typedef Vector<std::size_t, 6> Vec6st;
 
 
-	//ÈÎÒâÎ¬¶ÈºÍÀàĞÍµÄÏòÁ¿Àà
+	//ä»»æ„ç»´åº¦å’Œç±»å‹çš„å‘é‡ç±»
 	template<typename T, int N>
 	class Vector
 	{
@@ -71,39 +71,39 @@ namespace math
 
 		static int constexpr dim = N;
 
-		/*************** ¹¹Ôìº¯Êı ***************/
+		/*************** æ„é€ å‡½æ•° ***************/
 
 		Vector();
-		//Ê¹ÓÃÒ»¸öÖ¸Õë³õÊ¼»¯
+		//ä½¿ç”¨ä¸€ä¸ªæŒ‡é’ˆåˆå§‹åŒ–
 		explicit Vector(T const* values);
-		//³õÊ¼»¯ËùÓĞÔªËØ
+		//åˆå§‹åŒ–æ‰€æœ‰å…ƒç´ 
 		explicit Vector(T const& value);
-		//³õÊ¼»¯Ç°Á½¸öÔªËØ
+		//åˆå§‹åŒ–å‰ä¸¤ä¸ªå…ƒç´ 
 		Vector(T const& v1, T const& v2);
-		//³õÊ¼»¯Ç°Èı¸öÔªËØ
+		//åˆå§‹åŒ–å‰ä¸‰ä¸ªå…ƒç´ 
 		Vector(T const& v1, T const& v2, T const& v3);
-		//³õÊ¼»¯Ç°ËÄ¸öÔªËØ
+		//åˆå§‹åŒ–å‰å››ä¸ªå…ƒç´ 
 		Vector(T const& v1, T const& v2, T const& v3, T const& v4);
 
-		//ÀûÓÃÒ»¸ö¸üĞ¡µÄÏòÁ¿ºÍÖµ³õÊ¼»¯
+		//åˆ©ç”¨ä¸€ä¸ªæ›´å°çš„å‘é‡å’Œå€¼åˆå§‹åŒ–
 		Vector(Vector<T, N - 1> const& other, T const& v1);
 
-		//´ÓÏàÍ¬ÀàĞÍµÄÏòÁ¿¸´ÖÆ
+		//ä»ç›¸åŒç±»å‹çš„å‘é‡å¤åˆ¶
 		Vector(Vector<T, N> const& other);
-		//´Ó²»Í¬ÀàĞÍµÄÏòÁ¿¸´ÖÆ
+		//ä»ä¸åŒç±»å‹çš„å‘é‡å¤åˆ¶
 		template<typename O>
 		Vector(Vector<O, N> const& other);
 
-		//²»Í¬ÀàĞÍµÄÖ¸Õë³õÊ¼»¯
+		//ä¸åŒç±»å‹çš„æŒ‡é’ˆåˆå§‹åŒ–
 		template<typename O>
 		explicit Vector(O const* values);
 
-		/*************** ¹ÜÀí ***************/
+		/*************** ç®¡ç† ***************/
 
-		/* ¸ø¶¨ÖµÌî³ä */
+		/* ç»™å®šå€¼å¡«å…… */
 		Vector<T, N>& fill(T const& value);
 
-		/* ¸ø¶¨Ö¸Õë¸´ÖÆ */
+		/* ç»™å®šæŒ‡é’ˆå¤åˆ¶ */
 		Vector<T, N>& copy(T const* values, int num = N);
 
 		T minimum() const;
@@ -116,16 +116,16 @@ namespace math
 
 		T product() const;
 
-		/*************** Ò»Ôª²Ù×÷ ***************/
+		/*************** ä¸€å…ƒæ“ä½œ ***************/
 
-		/*     ????¼ÆËã³¤¶Ènorm*/
+		/*     ????è®¡ç®—é•¿åº¦norm*/
 		T norm() const;
-		//Æ½·½·¶Êı
+		//å¹³æ–¹èŒƒæ•°
 		T square_norm() const;
 
-		//¹éÒ»»¯£¬·µ»ØÒıÓÃ
+		//å½’ä¸€åŒ–ï¼Œè¿”å›å¼•ç”¨
 		Vector<T, N>& normalize();
-		//¹éÒ»»¯£¬·µ»ØÖµ
+		//å½’ä¸€åŒ–ï¼Œè¿”å›å€¼
 		Vector<T, N> normalized() const;
 
 		/** Component-wise absolute-value on self, returns self. */
@@ -138,27 +138,27 @@ namespace math
 		/** Returns a component-wise negation on copy of self. */
 		Vector<T, N> negated(void) const;
 
-		//ÉıĞòÅÅÁĞ
+		//å‡åºæ’åˆ—
 		Vector<T, N>& sort_asc();
-		//½µĞòÅÅÁĞ
+		//é™åºæ’åˆ—
 		Vector<T, N>& sort_desc();
-		//ÉıĞò
+		//å‡åº
 		Vector<T, N> sorted_asc() const;
-		//½µĞò
+		//é™åº
 		Vector<T, N> sorted_desc() const;
 
-		/* for_each·Âº¯Êı */
+		/* for_eachä»¿å‡½æ•° */
 		template<typename F>
 		Vector<T, N>& apply_for_each(F functor);
 		template<typename F>
 		Vector<T, N> applied_for_each(F functor) const;
 
-		/*************** ¶şÔª²Ù×÷ ***************/
+		/*************** äºŒå…ƒæ“ä½œ ***************/
 
-		//µã³Ë
+		//ç‚¹ä¹˜
 		T dot(Vector<T, N> const& other) const;
 
-		//²æ³Ë
+		//å‰ä¹˜
 		Vector<T, N> cross(Vector<T, N> const& other) const;
 
 		/** Component-wise multiplication with another vector. */
@@ -170,14 +170,14 @@ namespace math
 		/** Component-wise similarity using epsilon checks. */
 		bool is_similar(Vector<T, N> const& other, T const& epsilon) const;
 
-		/*************** µü´úÆ÷ ***************/
+		/*************** è¿­ä»£å™¨ ***************/
 
 		T* begin();
 		T const* begin() const;
 		T* end();
 		T const* end() const;
 
-		/*************** ²Ù×÷·û ***************/
+		/*************** æ“ä½œç¬¦ ***************/
 
 		/** Dereference operator to value array. */
 		T* operator* (void);
@@ -321,7 +321,7 @@ namespace math
 
 
 	/*
-		²æ³Ë
+		å‰ä¹˜
 	*/
 	template <typename T, int N>
 	inline Vector<T, N>
@@ -331,7 +331,7 @@ namespace math
 	}
 
 	/*
-		ÈıÎ¬ÏòÁ¿²æ³Ë
+		ä¸‰ç»´å‘é‡å‰ä¹˜
 	*/
 	template <typename T>
 	inline Vector<T, 3>
@@ -342,7 +342,7 @@ namespace math
 			v1[0] * v2[1] - v1[1] * v2[0]);
 	}
 
-	/*************** ¹ÜÀí ***************/
+	/*************** ç®¡ç† ***************/
 	template <typename T, int N>
 	inline Vector<T, N>&
 		Vector<T, N>::fill(T const& value)
@@ -394,7 +394,7 @@ namespace math
 		return std::accumulate(v, v + N, T(1), std::multiplies<T>());
 	}
 
-	/*************** Ò»Ôª²Ù×÷ ***************/
+	/*************** ä¸€å…ƒæ“ä½œ ***************/
 	template <typename T, int N>
 	inline T
 		Vector<T, N>::norm(void) const
@@ -501,7 +501,7 @@ namespace math
 		return Vector<T, N>(*this).apply_for_each(functor);
 	}
 
-	/*************** ¶şÔª²Ù×÷ ***************/
+	/*************** äºŒå…ƒæ“ä½œ ***************/
 	template <typename T, int N>
 	inline T
 		Vector<T, N>::dot(Vector<T, N> const& other) const
@@ -541,7 +541,7 @@ namespace math
 		return std::equal(v, v + N, *other, algo::predicate_epsilon_equal<T>(eps));
 	}
 
-	/*************** µü´úÆ÷ ***************/
+	/*************** è¿­ä»£å™¨ ***************/
 
 	template <typename T, int N>
 	inline T*
@@ -571,7 +571,7 @@ namespace math
 		return v + N;
 	}
 
-	/*************** ²Ù×÷·û ***************/
+	/*************** æ“ä½œç¬¦ ***************/
 
 	template <typename T, int N>
 	inline T*
@@ -744,9 +744,9 @@ namespace math
 	}
 
 
-	/*************** ¹¤¾ß ***************/
+	/*************** å·¥å…· ***************/
 
-	//±êÁ¿³Ë·¨
+	//æ ‡é‡ä¹˜æ³•
 	template <typename T, int N>
 	inline Vector<T, N>
 		operator* (T const& s, Vector<T, N> const& v)
@@ -754,7 +754,7 @@ namespace math
 		return v * s;
 	}
 
-	//±êÁ¿¼Ó·¨
+	//æ ‡é‡åŠ æ³•
 	template <typename T, int N>
 	inline Vector<T, N>
 		operator+ (T const& s, Vector<T, N> const& v)
@@ -762,7 +762,7 @@ namespace math
 		return v + s;
 	}
 
-	//±êÁ¿¼õ·¨
+	//æ ‡é‡å‡æ³•
 	template <typename T, int N>
 	inline Vector<T, N>
 		operator- (T const& s, Vector<T, N> const& v)
@@ -770,10 +770,10 @@ namespace math
 		return -v + s;
 	}
 
-	/*************** Êä³öÁ÷ ***************/
+	/*************** è¾“å‡ºæµ ***************/
 
 	/*
-		ĞòÁĞ»¯µ½Êä³öÁ÷
+		åºåˆ—åŒ–åˆ°è¾“å‡ºæµ
 	*/
 	template<typename T,int N>
 	inline std::ostream&

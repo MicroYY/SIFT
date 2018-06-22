@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include <string>
@@ -23,7 +23,7 @@ namespace image
 	typedef Image<int> IntImage;
 
 	/*
-		¶àÍ¨µÀÍ¼ÏñÀà
+		å¤šé€šé“å›¾åƒç±»
 		RGBRGB....
 	*/
 	template<typename T>
@@ -43,7 +43,7 @@ namespace image
 
 		Image(Image<T> const& src);
 
-		//Í¼ÏñµÄÖÇÄÜÖ¸Õë
+		//å›¾åƒçš„æ™ºèƒ½æŒ‡é’ˆ
 		static Ptr create();
 
 		static Ptr create(int width, int height, int channels);
@@ -73,10 +73,10 @@ namespace image
 		T& at(int index, int channel);
 
 		T& at(int x, int y, int channel);
-		//µ¥¸öÍ¨µÀÏßĞÔ²åÖµ
+		//å•ä¸ªé€šé“çº¿æ€§æ’å€¼
 		T linear_at(float x, float y, int channel) const;
-		//ËùÓĞÍ¨µÀÏßĞÔ²åÖµ
-		//¶ÔÃ¿¸öÉ«²ÊÍ¨µÀ²úÉúÒ»¸öÖµ£¬½á¹û·ÅÔÚpxÖĞ
+		//æ‰€æœ‰é€šé“çº¿æ€§æ’å€¼
+		//å¯¹æ¯ä¸ªè‰²å½©é€šé“äº§ç”Ÿä¸€ä¸ªå€¼ï¼Œç»“æœæ”¾åœ¨pxä¸­
 		void linear_at(float x, float y, T* px) const;
 
 		T& operator[] (int index);
@@ -363,21 +363,21 @@ namespace image
 	T
 		Image<T>::linear_at(float x, float y, int channel) const
 	{
-		//³¬¹ı³¤»ò¿íÎª×î´óÖµ
-		//Ğ¡ÓÚ0Ê±Îª0
-		//x ·¶Î§[0,w-1]
-		//y ·¶Î§[0,h-1]
+		//è¶…è¿‡é•¿æˆ–å®½ä¸ºæœ€å¤§å€¼
+		//å°äº0æ—¶ä¸º0
+		//x èŒƒå›´[0,w-1]
+		//y èŒƒå›´[0,h-1]
 		x = std::max(0.0f, std::min(static_cast<float>(this->w - 1), x));
 		y = std::max(0.0f, std::min(static_cast<float>(this->h - 1), y));
 
-		//Ê¡È¥ÁËx yµÄĞ¡Êı²¿·Ö
+		//çœå»äº†x yçš„å°æ•°éƒ¨åˆ†
 		int const floor_x = static_cast<int>(x);
 		int const floor_y = static_cast<int>(y);
-		//ÔÙ´Î¼ì²éÊÇ·ñÔ½½ç
+		//å†æ¬¡æ£€æŸ¥æ˜¯å¦è¶Šç•Œ
 		int const floor_xp1 = std::min(floor_x + 1, this->w - 1);
 		int const floor_yp1 = std::min(floor_y + 1, this->h - 1);
 
-		//w1 w3 ±»Ê¡È¥µÄĞ¡Êı²¿·Ö
+		//w1 w3 è¢«çœå»çš„å°æ•°éƒ¨åˆ†
 		float const w1 = x - static_cast<float>(floor_x);
 		float const w0 = 1.0f - w1;
 		float const w3 = y - static_cast<float>(floor_y);

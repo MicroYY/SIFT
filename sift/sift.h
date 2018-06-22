@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 
 #include "image.h"
@@ -9,93 +9,93 @@ class Sift
 {
 public:
 
-	//SIFT¼ì²âÅäÖÃ
+	//SIFTæ£€æµ‹é…ç½®
 	struct Config
 	{
 		Config();
 
 
 		/*
-			Ã¿×éoctave¼ì²âµÄ³ß¶ÈÊı£¬Ä¬ÈÏÎª3Ê±£¬
-			ÓĞ6²ã¸ßË¹¿Õ¼ä£¬5²ãDoG¿Õ¼ä
+			æ¯ç»„octaveæ£€æµ‹çš„å°ºåº¦æ•°ï¼Œé»˜è®¤ä¸º3æ—¶ï¼Œ
+			æœ‰6å±‚é«˜æ–¯ç©ºé—´ï¼Œ5å±‚DoGç©ºé—´
 		*/
 		int num_samples_per_octave;
 
 		/*
-			×îĞ¡octaveË÷Òı
-			Ä¬ÈÏÎª0£¬°ÑÊäÈëÍ¼Ïñ³ß´ç×÷Îª»ù´¡³ß´ç
-			´óÓÚÁã»á½«Í¼Ïñdownsample£¬²ÎÊıÎª2
-			ÉèÖÃÎª-1Ê±£¬·Å´óÍ¼Æ¬£¬²ÎÊıÎª2
+			æœ€å°octaveç´¢å¼•
+			é»˜è®¤ä¸º0ï¼ŒæŠŠè¾“å…¥å›¾åƒå°ºå¯¸ä½œä¸ºåŸºç¡€å°ºå¯¸
+			å¤§äºé›¶ä¼šå°†å›¾åƒdownsampleï¼Œå‚æ•°ä¸º2
+			è®¾ç½®ä¸º-1æ—¶ï¼Œæ”¾å¤§å›¾ç‰‡ï¼Œå‚æ•°ä¸º2
 		*/
 		int min_octave;
 
 		/*
-			×î´óoctaveÊı£¬Ä¬ÈÏÎª4£¬¶ÔÔ­Í¼ËÄ´ÎËõĞ¡
+			æœ€å¤§octaveæ•°ï¼Œé»˜è®¤ä¸º4ï¼Œå¯¹åŸå›¾å››æ¬¡ç¼©å°
 		*/
 		int max_octave;
 
 		/*
-			¹Ø¼üµã²åÖµÊ±DoGãĞÖµ
-			Ä¬ÈÏÎª0.02/samples
+			å…³é”®ç‚¹æ’å€¼æ—¶DoGé˜ˆå€¼
+			é»˜è®¤ä¸º0.02/samples
 		*/
 		float contrast_threshold;
 
 		/*
-			Ïû³ı±ßÔµÏìÓ¦µÄãĞÖµ£¬ÎªÖ÷ÇúÂÊr£¬Ä¬ÈÏÎª10
+			æ¶ˆé™¤è¾¹ç¼˜å“åº”çš„é˜ˆå€¼ï¼Œä¸ºä¸»æ›²ç‡rï¼Œé»˜è®¤ä¸º10
 		*/
 		float edge_ratio_threshold;
 
 		/*
-			½¨Á¢ĞÂµÄoctaveÊ±ÒªÇóµÄÄ£ºıÏµÊı
-			Ä¬ÈÏ sigma = 1.6
+			å»ºç«‹æ–°çš„octaveæ—¶è¦æ±‚çš„æ¨¡ç³Šç³»æ•°
+			é»˜è®¤ sigma = 1.6
 		*/
 		float base_blur_sigma;
 
 		/*
-			ÊäÈëÍ¼ÏñÄÚÔÚÄ£ºıÏµÊı£¬Ä¬ÈÏ0.5
+			è¾“å…¥å›¾åƒå†…åœ¨æ¨¡ç³Šç³»æ•°ï¼Œé»˜è®¤0.5
 		*/
 		float inherent_blur_sigma;
 
 		/*
-		   ÊÇ·ñÏò¿ØÖÆÌ¨Êä³ö×´Ì¬ĞÅÏ¢
+		   æ˜¯å¦å‘æ§åˆ¶å°è¾“å‡ºçŠ¶æ€ä¿¡æ¯
 		*/
 		bool verbose_output;
 
 		/*
-			ÊÇ·ñÏò¿ØÖÆÌ¨Êä³ö¸ü¶àĞÅÏ¢
+			æ˜¯å¦å‘æ§åˆ¶å°è¾“å‡ºæ›´å¤šä¿¡æ¯
 		*/
 		bool debug_output;
 	};
 
 	/*
-		SIFT¹Ø¼üµãµÄrepresentation
+		SIFTå…³é”®ç‚¹çš„representation
 	*/
 	struct Keypoint
 	{
-		//keypointµÄoctaveË÷Òı
+		//keypointçš„octaveç´¢å¼•
 		int octave;
-		//sampleË÷Òı
+		//sampleç´¢å¼•
 		float sample;
-		//keypoint x×ø±ê
+		//keypoint xåæ ‡
 		float x;
-		//keypoint y×ø±ê
+		//keypoint yåæ ‡
 		float y;
 	};
 
 	/*
-		SIFTÃèÊö×ÓµÄrepresentation
+		SIFTæè¿°å­çš„representation
 	*/
 	struct Descriptor
 	{
-		//¹Ø¼üµãÑÇÏñËØx×ø±ê
+		//å…³é”®ç‚¹äºšåƒç´ xåæ ‡
 		float x;
-		//¹Ø¼üµãÑÇÏñËØy×ø±ê
+		//å…³é”®ç‚¹äºšåƒç´ yåæ ‡
 		float y;
-		//¹Ø¼üµã³ß¶È(sigmaÖµ)
+		//å…³é”®ç‚¹å°ºåº¦(sigmaå€¼)
 		float scale;
-		//¹Ø¼üµã·½Ïò {0£¬2PI]
+		//å…³é”®ç‚¹æ–¹å‘ {0ï¼Œ2PI]
 		float orientation;
-		//ÃèÊö×ÓÊı¾İ£¬ÎŞ·ûºÅ [0.0, 1.0]
+		//æè¿°å­æ•°æ®ï¼Œæ— ç¬¦å· [0.0, 1.0]
 		math::Vector<float, 128> data;
 	};
 
@@ -106,17 +106,17 @@ public:
 public:
 	explicit Sift(Config const& conf);
 
-	//ÉèÖÃÊäÈëÍ¼Ïñ
+	//è®¾ç½®è¾“å…¥å›¾åƒ
 	void set_image(image::ByteImage::ConstPtr img);
-	//ÉèÖÃÊäÈëÍ¼Ïñ
+	//è®¾ç½®è¾“å…¥å›¾åƒ
 	void set_float_image(image::FloatImage::ConstPtr img);
 
-	//¿ªÊ¼SIFT¹Ø¼üµã¼ì²âºÍÃèÊö×ÓÌáÈ¡
+	//å¼€å§‹SIFTå…³é”®ç‚¹æ£€æµ‹å’Œæè¿°å­æå–
 	void process();
 
-	//·µ»Ø¹Ø¼üµã¼¯ºÏ
+	//è¿”å›å…³é”®ç‚¹é›†åˆ
 	Keypoints const& get_keypoints() const;
-	//·µ»ØÃèÊö×Ó¼¯ºÏ
+	//è¿”å›æè¿°å­é›†åˆ
 	Descriptors const& get_descriptors() const;
 
 
@@ -125,13 +125,13 @@ public:
 
 protected:
 	/*
-		SIFT octaveµÄrepresentation
+		SIFT octaveçš„representation
 	*/
 	struct Octave
 	{
 		typedef std::vector<image::FloatImage::Ptr> ImageVector;
-		ImageVector img;	///< S+3 images per octave				Ã¿¸öoctaveµÄ¸ßË¹¿Õ¼ä
-		ImageVector dog;	///< S+2 difference of gaussian images  ¸ßË¹²î·Ö¿Õ¼ä
+		ImageVector img;	///< S+3 images per octave				æ¯ä¸ªoctaveçš„é«˜æ–¯ç©ºé—´
+		ImageVector dog;	///< S+2 difference of gaussian images  é«˜æ–¯å·®åˆ†ç©ºé—´
 		ImageVector grad;	///< S+3 gradient images
 		ImageVector ori;	///< S+3 orientation images
 	};
@@ -160,13 +160,13 @@ protected:
 
 private:
 	Config config;
-	//Ô­Ê¼ÊäÈëÍ¼Æ¬
+	//åŸå§‹è¾“å…¥å›¾ç‰‡
 	image::FloatImage::ConstPtr orig;
-	//Í¼Ïñ½ğ×ÖËş
+	//å›¾åƒé‡‘å­—å¡”
 	Octaves octaves;
-	//¼ì²âµ½µÄ¹Ø¼üµã
+	//æ£€æµ‹åˆ°çš„å…³é”®ç‚¹
 	Keypoints keypoints;
-	//×îÖÕµÄSIFTÃèÊö×Ó
+	//æœ€ç»ˆçš„SIFTæè¿°å­
 	Descriptors descriptors;
 };
 

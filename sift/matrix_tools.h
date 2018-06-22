@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include <algorithm>
@@ -10,7 +10,7 @@
 namespace math
 {
 
-	/**¶Ô³Æ¾ØÕó
+	/**å¯¹ç§°çŸ©é˜µ
 	* Creates a symmetric projection matrix as used in OpenGL.
 	* Values in the frustum are mapped to the unit cube. The frustum
 	* near plane is defined by z-near, right and top values, the far-plane
@@ -21,7 +21,7 @@ namespace math
 		matrix_gl_projection(T const& znear, T const& zfar,
 			T const& top, T const& right);
 
-	/**·´¶Ô³Æ¾ØÕó
+	/**åå¯¹ç§°çŸ©é˜µ
 	* Creates a symmetric inverse projection matrix as used in OpenGL.
 	*/
 	template <typename T>
@@ -29,7 +29,7 @@ namespace math
 		matrix_inverse_gl_projection(T const& znear, T const& zfar,
 			T const& top, T const& right);
 
-	/**Ïà»úÎ»×Ë×ª»»³É¾ØÕó
+	/**ç›¸æœºä½å§¿è½¬æ¢æˆçŸ©é˜µ
 	* Creates a view transformation matrix for camera parameters given
 	* as camera position, normalized viewing direction, and normalized
 	* up-vector.
@@ -113,7 +113,7 @@ namespace math
 	T
 		matrix_trace(math::Matrix<T, N, N> const& mat);
 
-	/**¼ÆËãĞĞÁĞÊ½
+	/**è®¡ç®—è¡Œåˆ—å¼
 	* Calculates the determinant of the given matrix.
 	* This is specialized for 1x1, 2x2, 3x3 and 4x4 matrices only.
 	*/
@@ -121,7 +121,7 @@ namespace math
 	T
 		matrix_determinant(Matrix<T, N, N> const& mat);
 
-	/**¼ÆËãÄæ¾ØÕó
+	/**è®¡ç®—é€†çŸ©é˜µ
 	* Calculates the inverse of the given matrix.
 	* This is specialized for 1x1, 2x2, 3x3 and 4x4 matrices only.
 	*/
@@ -129,7 +129,7 @@ namespace math
 	Matrix<T, N, N>
 		matrix_inverse(Matrix<T, N, N> const& mat);
 
-	/**¸ø¶¨ĞĞÁĞÊ½¼ÆËãÄæ¾ØÕó
+	/**ç»™å®šè¡Œåˆ—å¼è®¡ç®—é€†çŸ©é˜µ
 	* Calculates the inverse of the given matrix given its determinant.
 	* This is specialized for 1x1, 2x2 and 3x3 matrices only.
 	*/

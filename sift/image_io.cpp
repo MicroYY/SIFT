@@ -1,4 +1,4 @@
-#include <algorithm>
+ï»¿#include <algorithm>
 
 
 
@@ -133,13 +133,13 @@ namespace image
 		if (fp == nullptr)
 			throw std::exception();
 
-		//¶ÁÍ·ÎÄ¼þ
+		//è¯»å¤´æ–‡ä»¶
 		ImageHeaders headers;
 		png_structp png = nullptr;
 		png_infop png_info = nullptr;
 		load_png_headers_intern(fp, &headers, &png, &png_info);
 
-		//¼ì²éÎ»Éî¶ÈÊÇ·ñÓÐÐ§
+		//æ£€æŸ¥ä½æ·±åº¦æ˜¯å¦æœ‰æ•ˆ
 		int const bit_depth = png_get_bit_depth(png, png_info);
 		if (bit_depth > 8)
 		{

@@ -1,4 +1,4 @@
-
+﻿
 
 #include "sift.h"
 #include "image_io.h"
@@ -27,8 +27,8 @@ int main(int argc,char** argv)
 	image::ByteImage::Ptr img = image::load_file(image_path);
 	
 
-	while (img->width() * img->height() > 6000000)
-		img = image::rescale_half_size<uint8_t>(img);
+	/*while (img->width() * img->height() > 6000000)
+		img = image::rescale_half_size<uint8_t>(img);*/
 
 	sift.set_image(img);
 	sift.process();

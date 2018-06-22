@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 
@@ -10,14 +10,14 @@ namespace math
 				Interpolation
 	**********************************/
 
-	//Ä£°å,Ò»¸öÖµ
+	//æ¨¡æ¿,ä¸€ä¸ªå€¼
 	template<typename T>
 	inline T
 		interpolate(T const& v1, float w1)
 	{
 		return v1 * w1;
 	}
-	//Ö¸¶¨ÀàĞÍ£¬Ò»¸öÖµ
+	//æŒ‡å®šç±»å‹ï¼Œä¸€ä¸ªå€¼
 	template<>
 	inline unsigned char
 		interpolate(unsigned char const& v1, float w1)
@@ -25,14 +25,14 @@ namespace math
 		return (unsigned char)((float)v1 * w1 + 0.5f);
 	}
 
-	//Ä£°å£¬Á½¸öÖµ
+	//æ¨¡æ¿ï¼Œä¸¤ä¸ªå€¼
 	template<typename T>
 	inline T
 		interpolate(T const& v1, T const& v2, float w1, float w2)
 	{
 		return v1 * w1 + v2 * w2;
 	}
-	//Ö¸¶¨ÀàĞÍ£¬Á½¸öÖµ
+	//æŒ‡å®šç±»å‹ï¼Œä¸¤ä¸ªå€¼
 	template<>
 	inline unsigned char
 		interpolate(unsigned char const& v1, unsigned char const& v2,
@@ -41,14 +41,14 @@ namespace math
 		return (unsigned char)((float)v1 * w1 + (float)v2 * w2 + 0.5f);
 	}
 
-	//Ä£°å£¬Èı¸öÖµ
+	//æ¨¡æ¿ï¼Œä¸‰ä¸ªå€¼
 	template<typename T>
 	inline T
 		interpolate(T const& v1, T const& v2, T const& v3, float w1, float w2, float w3)
 	{
 		return v1 * w1 + v2 * w2 + v3 * w3;
 	}
-	//Ö¸¶¨ÀàĞÍ£¬Èı¸öÖµ
+	//æŒ‡å®šç±»å‹ï¼Œä¸‰ä¸ªå€¼
 	template <>
 	inline unsigned char
 		interpolate(unsigned char const& v1, unsigned char const& v2,
@@ -58,7 +58,7 @@ namespace math
 			+ (float)v3 * w3 + 0.5f);
 	}
 
-	//Ä£°å£¬ËÄ¸öÖµ
+	//æ¨¡æ¿ï¼Œå››ä¸ªå€¼
 	template <typename T>
 	inline T
 		interpolate(T const& v1, T const& v2, T const& v3, T const& v4,
@@ -67,7 +67,7 @@ namespace math
 		return v1 * w1 + v2 * w2 + v3 * w3 + v4 * w4;
 	}
 
-	//Ö¸¶¨ÀàĞÍ£¬ËÄ¸öÖµ
+	//æŒ‡å®šç±»å‹ï¼Œå››ä¸ªå€¼
 	template <>
 	inline unsigned char
 		interpolate(unsigned char const& v1, unsigned char const& v2,
@@ -80,11 +80,11 @@ namespace math
 
 
 	/**********************************
-				   ¸ßË¹
+				   é«˜æ–¯
 	**********************************/
 
 	/*
-		¸ßË¹º¯Êı f(x) = exp( -1/2 * (x/sigma)^2 )
+		é«˜æ–¯å‡½æ•° f(x) = exp( -1/2 * (x/sigma)^2 )
 	*/
 	template <typename T>
 	inline T
@@ -94,8 +94,8 @@ namespace math
 	}
 
 	/*
-		xÒÑ¾­±»Æ½·½¹ı
-		¸ßË¹º¯Êı f(x) = exp( -1/2 * xx / sigma^2 )
+		xå·²ç»è¢«å¹³æ–¹è¿‡
+		é«˜æ–¯å‡½æ•° f(x) = exp( -1/2 * xx / sigma^2 )
 	*/
 	template <typename T>
 	inline T
@@ -105,7 +105,7 @@ namespace math
 	}
 
 
-	/*     ËÄÉáÎåÈë     */
+	/*     å››èˆäº”å…¥     */
 	template <typename T>
 	inline T
 		round(T const& x)

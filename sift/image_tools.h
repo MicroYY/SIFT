@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include <iostream>
@@ -18,7 +18,7 @@ namespace image
 {
 
 	/*
-	***************Í¼Ïñ×ª»»***************
+	***************å›¾åƒè½¬æ¢***************
 	*/
 
 	/*
@@ -74,43 +74,43 @@ namespace image
 		raw_to_float_image(RawImage::ConstPtr image);
 
 	/*
-		Ä£°å×ª»»£¬Ã»ÓĞscalingºÍclamping
+		æ¨¡æ¿è½¬æ¢ï¼Œæ²¡æœ‰scalingå’Œclamping
 	*/
 	template<typename SRC, typename DST>
 	typename Image<DST>::Ptr
 		type_to_type_image(typename Image<SRC>::ConstPtr image);
 
 	/*
-		Ñ°ÕÒ×îĞ¡ÖµºÍ×î´óÖµ
+		å¯»æ‰¾æœ€å°å€¼å’Œæœ€å¤§å€¼
 	*/
 	template<typename T>
 	void
 		find_min_max_value(typename image::Image<T>::ConstPtr image, T* vmin, T* vmax);
 
 	/*
-		¹éÒ»»¯
+		å½’ä¸€åŒ–
 	*/
 	void
 		float_image_normalize(FloatImage::Ptr image);
 
 	/*
-	***************Í¼ÏñÈ¥»û±ä***************
+	***************å›¾åƒå»ç•¸å˜***************
 	*/
 
 	/*
-		¸ø¶¨Á½¸ö²ÎÊıÈ¥»û±ä
-		Á½¸öÖµÏàµÈÊ±È¥»û±äÃ»ÓĞ×÷ÓÃ
-		»û±äÄ£ĞÍ Microsoft Photosynther
-		²»ÒÀÀµ½¹¾à
+		ç»™å®šä¸¤ä¸ªå‚æ•°å»ç•¸å˜
+		ä¸¤ä¸ªå€¼ç›¸ç­‰æ—¶å»ç•¸å˜æ²¡æœ‰ä½œç”¨
+		ç•¸å˜æ¨¡å‹ Microsoft Photosynther
+		ä¸ä¾èµ–ç„¦è·
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		image_undistort_msps(typename Image<T>::ConstPtr img, double k0, double k1);
 
 	/*
-		¸ø¶¨½¹¾àºÍÁ½¸öÈ¥»û±ä²ÎÊı
-		»û±äÄ£ĞÍ  rd(r) = 1 + k_2 r^2 + k_4 r^4 ÆäÖĞ r^2 = x^2 + y^2
-		½¹¾à uint ÀàĞÍ
+		ç»™å®šç„¦è·å’Œä¸¤ä¸ªå»ç•¸å˜å‚æ•°
+		ç•¸å˜æ¨¡å‹  rd(r) = 1 + k_2 r^2 + k_4 r^4 å…¶ä¸­ r^2 = x^2 + y^2
+		ç„¦è· uint ç±»å‹
 		MVE bundler
 	*/
 	template<typename T>
@@ -119,9 +119,9 @@ namespace image
 			double focal_length, double k2, double k4);
 
 	/*
-		¸ø¶¨½¹¾àºÍÒ»¸ö²ÎÊıÈ¥»û±ä
-		»û±ä²ÎÊıÎª0£¬È¥»û±äÃ»ÓĞ×÷ÓÃ
-		½¹¾à uint ÀàĞÍ
+		ç»™å®šç„¦è·å’Œä¸€ä¸ªå‚æ•°å»ç•¸å˜
+		ç•¸å˜å‚æ•°ä¸º0ï¼Œå»ç•¸å˜æ²¡æœ‰ä½œç”¨
+		ç„¦è· uint ç±»å‹
 		VisualSfM
 	*/
 	template<typename T>
@@ -130,28 +130,28 @@ namespace image
 			double focal_length, double k1);
 
 	/*
-	***************Í¼ÏñËõ·ÅÓë²Ã¼ô***************
+	***************å›¾åƒç¼©æ”¾ä¸è£å‰ª***************
 	*/
 
 	/*
-		²Ã¼ô³öÒ»¸ö¾ØĞÎÇøÓò
-		Ô½½çÇøÓòÓÃ¸ø¶¨µÄÑÕÉ«³õÊ¼»¯
+		è£å‰ªå‡ºä¸€ä¸ªçŸ©å½¢åŒºåŸŸ
+		è¶Šç•ŒåŒºåŸŸç”¨ç»™å®šçš„é¢œè‰²åˆå§‹åŒ–
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		crop(typename Image<T>::ConstPtr image, int width, int height,
 			int left, int top, T const* fill_color);
 
-	/****** Ëõ·Å²åÖµÀàĞÍ ******/
+	/****** ç¼©æ”¾æ’å€¼ç±»å‹ ******/
 	enum RescaleInterpolation
 	{
 		RESCALE_NEAREST,
 		RESCALE_LINEAR,
-		RESCALE_GAUSSIAN  //byte image ²»ÊÊÓÃ
+		RESCALE_GAUSSIAN  //byte image ä¸é€‚ç”¨
 	};
 
 	/*
-		·µ»ØËõ·ÅµÄÍ¼Æ¬
+		è¿”å›ç¼©æ”¾çš„å›¾ç‰‡
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
@@ -159,18 +159,18 @@ namespace image
 			int width, int height);
 
 	/*
-		Ëõ·Å³ß¶È0.5
+		ç¼©æ”¾å°ºåº¦0.5
 		2*2 pixels -> 1 pixel
-		³ß´çÎªÆæÊıÊ±£¬ĞÂµÄ³ß´ç new_size = (old_size + 1) / 2
+		å°ºå¯¸ä¸ºå¥‡æ•°æ—¶ï¼Œæ–°çš„å°ºå¯¸ new_size = (old_size + 1) / 2
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		rescale_half_size(typename Image<T>::ConstPtr image);
 
 	/*
-		·µ»ØÒò×ÓÎª0.5µÄ¸ßË¹½üËÆÍ¼Ïñ
-		ºË 4*4, sigma ²»ÄÜ±È1´óÌ«¶à
-		Ä¬ÈÏ sigma = sqrt(1.0^2 - 0.5^2) =~ 0.866
+		è¿”å›å› å­ä¸º0.5çš„é«˜æ–¯è¿‘ä¼¼å›¾åƒ
+		æ ¸ 4*4, sigma ä¸èƒ½æ¯”1å¤§å¤ªå¤š
+		é»˜è®¤ sigma = sqrt(1.0^2 - 0.5^2) =~ 0.866
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
@@ -178,56 +178,56 @@ namespace image
 			float sigma = 0.866025403784439f);
 
 	/*
-		Ã¿Á½ĞĞÁ½ÁĞ subsample
-		ÔÚÔ­Ê¼Í¼Æ¬ÒÑ¾­ÓĞ´ó¸ÅµÄÄ£ºıÊ±ÓĞÓÃ
+		æ¯ä¸¤è¡Œä¸¤åˆ— subsample
+		åœ¨åŸå§‹å›¾ç‰‡å·²ç»æœ‰å¤§æ¦‚çš„æ¨¡ç³Šæ—¶æœ‰ç”¨
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		rescale_half_size_subsample(typename Image<T>::ConstPtr image);
 
 	/*
-		upscale ÏßĞÔ²åÖµ Òò×ÓÎª2
-		Ö»ÓĞ²åÖµÖµÓÃÀ´´´½¨ĞÂÍ¼
-		Ìá³öÁËÒ»Ğ©Ô­Ê¼ĞÅÏ¢£¬±£ÁôÁË dimension/appearance
+		upscale çº¿æ€§æ’å€¼ å› å­ä¸º2
+		åªæœ‰æ’å€¼å€¼ç”¨æ¥åˆ›å»ºæ–°å›¾
+		æå‡ºäº†ä¸€äº›åŸå§‹ä¿¡æ¯ï¼Œä¿ç•™äº† dimension/appearance
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		rescale_double_size(typename Image<T>::ConstPtr img);
 
 	/*
-		upscale ÏßĞÔ²åÖµ
-		Ö±½Ó»ñÈ¡Ã¿Á½ĞĞºÍÁĞ
-		±£ÁôÁËËùÓĞĞÅÏ¢£¨Ô­Ê¼Í¼Æ¬¿ÉÒÔÍ¨¹ırescale_half_size_subsample»Ö¸´£©
-		×óÉÏ½Ç²úÉú°ë¸öÏñËØµÄÆ«ÒÆ
+		upscale çº¿æ€§æ’å€¼
+		ç›´æ¥è·å–æ¯ä¸¤è¡Œå’Œåˆ—
+		ä¿ç•™äº†æ‰€æœ‰ä¿¡æ¯ï¼ˆåŸå§‹å›¾ç‰‡å¯ä»¥é€šè¿‡rescale_half_size_subsampleæ¢å¤ï¼‰
+		å·¦ä¸Šè§’äº§ç”ŸåŠä¸ªåƒç´ çš„åç§»
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		rescale_double_size_supersample(typename Image<T>::ConstPtr img);
 
 	/*
-		ÓÃ×î½üÁÚµãËõ·ÅÊäÈëÍ¼Ïñin
-		ĞÂÍ¼±»Ëõ·Åµ½outµÄÎ¬¶È£¬½á¹û´æ·ÅÔÚoutÖĞ
-		downsampleÊ±£¬ÊäÈëinĞèÒªÔÚºÏÊÊµÄ mipmap level£¬·ÀÖ¹Ê§Õæ
+		ç”¨æœ€è¿‘é‚»ç‚¹ç¼©æ”¾è¾“å…¥å›¾åƒin
+		æ–°å›¾è¢«ç¼©æ”¾åˆ°outçš„ç»´åº¦ï¼Œç»“æœå­˜æ”¾åœ¨outä¸­
+		downsampleæ—¶ï¼Œè¾“å…¥inéœ€è¦åœ¨åˆé€‚çš„ mipmap levelï¼Œé˜²æ­¢å¤±çœŸ
 	*/
 	template<typename T>
 	void
 		rescale_nearest(typename Image<T>::ConstPtr in, typename Image<T>::Ptr out);
 
 	/*
-		ÏßĞÔ²åÖµËõ·ÅÊäÈëin
-		ĞÂÍ¼±»Ëõ·Åµ½outµÄÎ¬¶È£¬½á¹û´æ·ÅÔÚoutÖĞ
-		downsampleÊ±£¬ÊäÈëinĞèÒªÔÚºÏÊÊµÄ mipmap level£¬·ÀÖ¹Ê§Õæ
+		çº¿æ€§æ’å€¼ç¼©æ”¾è¾“å…¥in
+		æ–°å›¾è¢«ç¼©æ”¾åˆ°outçš„ç»´åº¦ï¼Œç»“æœå­˜æ”¾åœ¨outä¸­
+		downsampleæ—¶ï¼Œè¾“å…¥inéœ€è¦åœ¨åˆé€‚çš„ mipmap levelï¼Œé˜²æ­¢å¤±çœŸ
 	*/
 	template<typename T>
 	void
 		rescale_linear(typename Image<T>::ConstPtr in, typename Image<T>::Ptr out);
 
 	/*
-		¸ßË¹ºËÑÚÄ£Ëõ·ÅÊäÈëin
-		ĞÂÍ¼±»Ëõ·Åµ½outµÄÎ¬¶È£¬½á¹û´æ·ÅÔÚoutÖĞ
-		sigmaÔ½Ğ¡£¬½á¹ûÔ½ÈñÀû£¬Ê§Õæ¸üÑÏÖØ
-		sigmaÔ½´ó£¬½á¹ûÔ½Æ½»¬£¬Ô½Ä£ºı
-		¸Ã·½·¨ËÙ¶È·Ç³£Âı
+		é«˜æ–¯æ ¸æ©æ¨¡ç¼©æ”¾è¾“å…¥in
+		æ–°å›¾è¢«ç¼©æ”¾åˆ°outçš„ç»´åº¦ï¼Œç»“æœå­˜æ”¾åœ¨outä¸­
+		sigmaè¶Šå°ï¼Œç»“æœè¶Šé”åˆ©ï¼Œå¤±çœŸæ›´ä¸¥é‡
+		sigmaè¶Šå¤§ï¼Œç»“æœè¶Šå¹³æ»‘ï¼Œè¶Šæ¨¡ç³Š
+		è¯¥æ–¹æ³•é€Ÿåº¦éå¸¸æ…¢
 	*/
 	template<typename T>
 	void
@@ -235,55 +235,55 @@ namespace image
 			typename Image<T>::Ptr out, float sigma_factor = 1.0f);
 
 	/*
-	***************Í¼ÏñÄ£ºı***************
+	***************å›¾åƒæ¨¡ç³Š***************
 	*/
 
 	/*
-		¸ßË¹¾í»ıºËÄ£ºı
+		é«˜æ–¯å·ç§¯æ ¸æ¨¡ç³Š
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		blur_gaussian(typename Image<T>::ConstPtr in, float sigma);
 
 	/*
-		ÂË²¨Æ÷ size 'ks' Ä£ºı
-		ËÙ¶È±È¸ßË¹Ä£ºı¿ì
-		ÖÊÁ¿²»Èç¸ßË¹Ä£ºı£¨ÂË²¨Æ÷Ê§Õæ£©
+		æ»¤æ³¢å™¨ size 'ks' æ¨¡ç³Š
+		é€Ÿåº¦æ¯”é«˜æ–¯æ¨¡ç³Šå¿«
+		è´¨é‡ä¸å¦‚é«˜æ–¯æ¨¡ç³Šï¼ˆæ»¤æ³¢å™¨å¤±çœŸï¼‰
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		blur_boxfilter(typename Image<T>::ConstPtr in, int ks);
 
 	/*
-	***************Í¼ÏñĞı×ªºÍ·­×ª***************
+	***************å›¾åƒæ—‹è½¬å’Œç¿»è½¬***************
 	*/
 
-	/****** Í¼ÏñĞı×ªÀàĞÍ ******/
+	/****** å›¾åƒæ—‹è½¬ç±»å‹ ******/
 	enum RotateType
 	{
-		ROTATE_CCW,		///< ÄæÊ±Õë
-		ROTATE_CW,		///< Ë³Ê±Õë
-		ROTATE_180,		///< 180¶ÈĞı×ª
-		ROTATE_SWAP		///< ½»»»xÖáºÍyÖá
+		ROTATE_CCW,		///< é€†æ—¶é’ˆ
+		ROTATE_CW,		///< é¡ºæ—¶é’ˆ
+		ROTATE_180,		///< 180åº¦æ—‹è½¬
+		ROTATE_SWAP		///< äº¤æ¢xè½´å’Œyè½´
 	};
 
 	/*
-		ÊµÏÖÈÎºÎÒ»ÖÖĞı×ª
-		½»»»×ø±êÖá²¢²»ÊÇÕæÕıµÄĞı×ª£¬¶øÊÇ±äĞÎ
+		å®ç°ä»»ä½•ä¸€ç§æ—‹è½¬
+		äº¤æ¢åæ ‡è½´å¹¶ä¸æ˜¯çœŸæ­£çš„æ—‹è½¬ï¼Œè€Œæ˜¯å˜å½¢
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		rotate(typename Image<T>::ConstPtr image, RotateType type);
 
 	/*
-		¸ø¶¨½Ç¶ÈË³Ê±ÕëĞı×ª
-		ÓÃ¸ø¶¨µÄÑÕÉ«Ìî³ä
+		ç»™å®šè§’åº¦é¡ºæ—¶é’ˆæ—‹è½¬
+		ç”¨ç»™å®šçš„é¢œè‰²å¡«å……
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		rotate(typename Image<T>::ConstPtr image, float angle, T const* fill_color);
 
-	/****** Í¼Ïñ·­×ªÀàĞÍ ******/
+	/****** å›¾åƒç¿»è½¬ç±»å‹ ******/
 	enum FlipType
 	{
 		FLIP_NONE = 0,
@@ -293,14 +293,14 @@ namespace image
 	};
 
 	/*
-		·­×ª¸ø¶¨Í¼Æ¬
+		ç¿»è½¬ç»™å®šå›¾ç‰‡
 	*/
 	template<typename T>
 	void
 		flip(typename Image<T>::Ptr image, FlipType type);
 
 	/*
-	***************Í¼ÏñÈ¥±¥ºÍ***************
+	***************å›¾åƒå»é¥±å’Œ***************
 	*/
 
 	enum DesaturateType
@@ -331,14 +331,14 @@ namespace image
 
 
 	/*
-		»Ò¶ÈÍ¼£¨»òÕßË«Í¨µÀ£© -> RGB »ò RGBA
+		ç°åº¦å›¾ï¼ˆæˆ–è€…åŒé€šé“ï¼‰ -> RGB æˆ– RGBA
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		expand_grayscale(typename Image<T>::ConstPtr image);
 
 	/*
-		È¥alphaÍ¨µÀ
+		å»alphaé€šé“
 	*/
 	template<typename T>
 	void
@@ -346,11 +346,11 @@ namespace image
 
 
 	/*
-	***************±ßÔµ¼ì²â***************
+	***************è¾¹ç¼˜æ£€æµ‹***************
 	*/
 
 	/*
-		sobelËã×ÓÊµÏÖ
+		sobelç®—å­å®ç°
 		http://en.wikipedia.org/wiki/Sobel_operator
 		For byte images, the operation can lead to clipped values.
 		Likewise for floating point images, it leads to values >1.
@@ -361,20 +361,20 @@ namespace image
 
 
 	/*
-	***************ÔÓÏî***************
+	***************æ‚é¡¹***************
 	*/
 
 	/*
-		Í¼ÏñÏà¼õ£¬ÓĞ·ûºÅ
-		¶ÔÎŞ·ûºÅÍ¼ÏñÀàĞÍÎŞĞ§
+		å›¾åƒç›¸å‡ï¼Œæœ‰ç¬¦å·
+		å¯¹æ— ç¬¦å·å›¾åƒç±»å‹æ— æ•ˆ
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
 		subtract(typename Image<T>::ConstPtr i1, typename Image<T>::ConstPtr i2);
 
 	/*
-		´´½¨²îÖµÍ¼Ïñ£¬¼ÆËãÃ¿¸öÖµµÄ¾ø¶ÔÖµ²î
-		¶ÔÎŞ·ûºÅÍ¼ÏñÀàĞÍ
+		åˆ›å»ºå·®å€¼å›¾åƒï¼Œè®¡ç®—æ¯ä¸ªå€¼çš„ç»å¯¹å€¼å·®
+		å¯¹æ— ç¬¦å·å›¾åƒç±»å‹
 	*/
 	template<typename T>
 	typename Image<T>::Ptr
@@ -559,23 +559,23 @@ namespace image
 		out->allocate(ow, oh, ic);
 
 		int witer = 0;
-		//½«Ò»¸öÏñËØÀ©Õ¹³É 2*2£¬
+		//å°†ä¸€ä¸ªåƒç´ æ‰©å±•æˆ 2*2ï¼Œ
 		for (int y = 0; y < oh; ++y)
 		{
-			//×îºóÒ»ĞĞ±ê¼ÇÎªfalse
+			//æœ€åä¸€è¡Œæ ‡è®°ä¸ºfalse
 			bool nexty = (y + 1 < oh);
-			// y·½ÏòÆ«ÒÆ
+			// yæ–¹å‘åç§»
 			int yoff[2] = { iw * (y >> 1), iw * ((y + nexty) >> 1) };
 			for (int x = 0; x < ow; ++x)
 			{
-				//×îºóÒ»ÁĞ±ê¼ÇÎªfalse
+				//æœ€åä¸€åˆ—æ ‡è®°ä¸ºfalse
 				bool nextx = (x + 1 < ow);
-				// x·½ÏòÆ«ÒÆ
+				// xæ–¹å‘åç§»
 				int xoff[2] = { x >> 1,(x + nextx) >> 1 };
-				//Ò»¸öÏñËØ±»À©Õ¹³É 2*2 
+				//ä¸€ä¸ªåƒç´ è¢«æ‰©å±•æˆ 2*2 
 				T const* val[4] =
 				{
-					//È¡µÃÀ©Õ¹ºóÁ½ĞĞÖĞµÄµÚÒ»ĞĞ
+					//å–å¾—æ‰©å±•åä¸¤è¡Œä¸­çš„ç¬¬ä¸€è¡Œ
 					&img->at(yoff[0] + xoff[0],0),
 					&img->at(yoff[0] + xoff[1],0),
 					&img->at(yoff[1] + xoff[0],0),
@@ -598,7 +598,7 @@ namespace image
 		if (in == nullptr)
 			throw std::invalid_argument("Null image given");
 
-		//sigmaÌ«Ğ¡Ã»ÓĞ±ä»¯
+		//sigmaå¤ªå°æ²¡æœ‰å˜åŒ–
 		if (MATH_EPSILON_EQ(sigma, 0.0f, 0.1f))
 			return in->duplicate();
 
@@ -608,20 +608,20 @@ namespace image
 		int const ks = std::ceil(sigma * 2.884f);
 		std::vector<float> kernel(ks + 1);
 
-		//Ìî³äºË
+		//å¡«å……æ ¸
 		for (int i = 0; i < ks + 1; ++i)
 			kernel[i] = math::gaussian((float)i, sigma);
 
-		//Á½´ÎÒ»Î¬¾í»ı
+		//ä¸¤æ¬¡ä¸€ç»´å·ç§¯
 
-		//x·½Ïò
+		//xæ–¹å‘
 		typename Image<T>::Ptr sep(Image<T>::create(w, h, c));
 		int px = 0;
 		for (int y = 0; y < h; ++y)
 			for (int x = 0; x < w; ++x, ++px)
 				for (int cc = 0; cc < (int)c; ++cc)
 				{
-					//Ã¿¸öÍ¨µÀµ¥¶À×ö¾í»ı
+					//æ¯ä¸ªé€šé“å•ç‹¬åšå·ç§¯
 					math::Accum<T> accum(T(0));
 					for (int i = -ks; i <= ks; ++i)
 					{
@@ -666,9 +666,9 @@ namespace image
 		out->allocate(ow, oh, ic);
 
 		int outpos = 0;
-		//Ã¿Ò»ĞĞµÄÔªËØ¸öÊı
+		//æ¯ä¸€è¡Œçš„å…ƒç´ ä¸ªæ•°
 		int rowstride = iw * ic;
-		//±éÀúËõ·ÅÖ®ºóÍ¼ÏñµÄÃ¿Ò»¸öÏñËØ
+		//éå†ç¼©æ”¾ä¹‹åå›¾åƒçš„æ¯ä¸€ä¸ªåƒç´ 
 		for (int y = 0; y < oh; ++y)
 		{
 			int irow1 = y * 2 * rowstride;

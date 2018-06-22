@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <cmath>
 #include <vector>
@@ -11,7 +11,7 @@ namespace math
 	{
 
 		/*
-			·µ»Ø×î´óÔªËØµÄË÷Òı
+			è¿”å›æœ€å¤§å…ƒç´ çš„ç´¢å¼•
 		*/
 		template<typename FwdIter>
 		std::size_t
@@ -35,9 +35,9 @@ namespace math
 		}
 
 		/*
-			ÔÚÓĞĞòµÄ¼üÖµ¶ÔÖĞÕÒµ½¶ÔÓ¦¼üµÄÖµ
-			Èç¹û¼ü²»´æÔÚ£¬·µ»Ø nullptr
-			¶ş·Ö·¨²éÕÒ
+			åœ¨æœ‰åºçš„é”®å€¼å¯¹ä¸­æ‰¾åˆ°å¯¹åº”é”®çš„å€¼
+			å¦‚æœé”®ä¸å­˜åœ¨ï¼Œè¿”å› nullptr
+			äºŒåˆ†æ³•æŸ¥æ‰¾
 		*/
 		template<typename Key, typename Value>
 		Value const*
@@ -59,7 +59,7 @@ namespace math
 		}
 
 		/*
-			Éú³É·Âº¯Êı
+			ç”Ÿæˆä»¿å‡½æ•°
 		*/
 		template<typename T>
 		struct IncrementGenerator
@@ -81,7 +81,7 @@ namespace math
 			Misc: predicate,iterators, ... ?????
 		*/
 
-		//Æ½·½ÀÛ¼Ó
+		//å¹³æ–¹ç´¯åŠ 
 		template<typename T>
 		inline T
 			accum_squared_sum(T const& init, T const& next)
@@ -89,7 +89,7 @@ namespace math
 			return init + next * next;
 		}
 
-		//¾ø¶ÔÖµÀÛ¼Ó
+		//ç»å¯¹å€¼ç´¯åŠ 
 		template<typename T>
 		inline T
 			accum_absolute_sum(T const& init, T const& next)

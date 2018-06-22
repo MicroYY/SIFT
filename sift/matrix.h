@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <algorithm>
 #include <functional>
@@ -30,7 +30,7 @@ namespace math
 
 
 	/*
-		ÈÎÒâÎ¬¶ÈºÍÀàĞÍµÄ¾ØÕóÀà
+		ä»»æ„ç»´åº¦å’Œç±»å‹çš„çŸ©é˜µç±»
 		Type: Matrix<T,ROWS,COLS>
 		Access: M(row, col)
 	*/
@@ -40,100 +40,100 @@ namespace math
 	public:
 		typedef T ValueType;
 
-		//  N ĞĞÊı ¸ß¶È
-		//  M ÁĞÊı ¿í¶È
+		//  N è¡Œæ•° é«˜åº¦
+		//  M åˆ—æ•° å®½åº¦
 		static int constexpr rows = N;
 		static int constexpr cols = M;
 
-		/*************** ¹¹Ôìº¯Êı ***************/
+		/*************** æ„é€ å‡½æ•° ***************/
 
 		Matrix();
-		//Ö¸Õë³õÊ¼»¯
+		//æŒ‡é’ˆåˆå§‹åŒ–
 		explicit Matrix(T const* values);
-		//³õÊ¼»¯ËùÓĞÔªËØ
+		//åˆå§‹åŒ–æ‰€æœ‰å…ƒç´ 
 		explicit Matrix(T const& value);
 
-		//¸´ÖÆÍ¬ÀàĞÍ¾ØÕó
+		//å¤åˆ¶åŒç±»å‹çŸ©é˜µ
 		Matrix(Matrix<T, N, M> const& other);
-		//¸´ÖÆ²»Í¬ÀàĞÍ¾ØÕó
+		//å¤åˆ¶ä¸åŒç±»å‹çŸ©é˜µ
 		template<typename O>
 		Matrix(Matrix<O, N, M> const& other);
 
-		/*************** ¹ÜÀí ***************/
+		/*************** ç®¡ç† ***************/
 
-		//ÓÃ¸ø¶¨ÖµÌî³ä¾ØÕó
+		//ç”¨ç»™å®šå€¼å¡«å……çŸ©é˜µ
 		Matrix<T, N, M>& fill(T const& value);
 
-		//ÅĞ¶Ï¾ØÕóÊÇ·ñÎª·½Õó
+		//åˆ¤æ–­çŸ©é˜µæ˜¯å¦ä¸ºæ–¹é˜µ
 		bool is_square() const;
 
-		//·µ»ØÄ³Ò»ĞĞ
+		//è¿”å›æŸä¸€è¡Œ
 		Vector<T, M> row(int index) const;
-		//·µ»ØÄ³Ò»ĞĞ
+		//è¿”å›æŸä¸€è¡Œ
 		Vector<T, N> col(int index) const;
 
-		//·µ»Ø¾ØÕóÕæ×îĞ¡µÄÔªËØ
+		//è¿”å›çŸ©é˜µçœŸæœ€å°çš„å…ƒç´ 
 		T minimum() const;
-		//·µ»Ø¾ØÕóÖĞ×î´óµÄÔªËØ
+		//è¿”å›çŸ©é˜µä¸­æœ€å¤§çš„å…ƒç´ 
 		T maximum() const;
 
-		//Á½¸ö¾ØÕóË®Æ½ºÏ²¢
-		//×ó±ßthis£¬ÓÒ±ßother
+		//ä¸¤ä¸ªçŸ©é˜µæ°´å¹³åˆå¹¶
+		//å·¦è¾¹thisï¼Œå³è¾¹other
 		template<int O>
 		Matrix<T, N, M + O> hstack(Matrix<T, N, O> const& other) const;
-		//Á½¸ö¾ØÕó´¹Ö±ºÏ²¢
-		//ÉÏÃæthis£¬ÏÂÃæother
+		//ä¸¤ä¸ªçŸ©é˜µå‚ç›´åˆå¹¶
+		//ä¸Šé¢thisï¼Œä¸‹é¢other
 		template<int O>
 		Matrix<T, N + O, M> vstack(Matrix<T, O, M> const& other) const;
 
-		//¾ØÕóºÍÏòÁ¿Ë®Æ½ºÏ²¢
-		//×ó±ßthis£¬ÓÒ±ßÏòÁ¿
+		//çŸ©é˜µå’Œå‘é‡æ°´å¹³åˆå¹¶
+		//å·¦è¾¹thisï¼Œå³è¾¹å‘é‡
 		Matrix<T, N, M + 1> hstack(Vector<T, N> const& other) const;
-		//¾ØÕóºÍÏòÁ¿´¹Ö±ºÏ²¢
-		//ÉÏÃæthis£¬ÏÂÃæÏòÁ¿
+		//çŸ©é˜µå’Œå‘é‡å‚ç›´åˆå¹¶
+		//ä¸Šé¢thisï¼Œä¸‹é¢å‘é‡
 		Matrix<T, N + 1, M> vstack(Vector<T, M> const& other) const;
 
-		//·µ»ØÖ¸¶¨ĞĞ±»É¾³ıµÄ¾ØÕó
+		//è¿”å›æŒ‡å®šè¡Œè¢«åˆ é™¤çš„çŸ©é˜µ
 		Matrix<T, N - 1, M> delete_row(int index) const;
-		//·µ»ØÖ¸¶¨ÁĞ±»É¾³ıµÄ¾ØÕó
+		//è¿”å›æŒ‡å®šåˆ—è¢«åˆ é™¤çš„çŸ©é˜µ
 		Matrix<T, N, M - 1> delete_col(int index) const;
 
-		/*************** Ò»Ôª²Ù×÷ ***************/
+		/*************** ä¸€å…ƒæ“ä½œ ***************/
 
-		//È¡·´£¬·µ»ØÒıÓÃ
+		//å–åï¼Œè¿”å›å¼•ç”¨
 		Matrix<T, N, M>& negate();
-		//È¡·´£¬·µ»ØÖµ
+		//å–åï¼Œè¿”å›å€¼
 		Matrix<T, N, M> negated() const;
 
-		//×ªÖÃ¾ØÕó£¬Ö»¶Ô·½Õó,·µ»ØÒıÓÃ
+		//è½¬ç½®çŸ©é˜µï¼Œåªå¯¹æ–¹é˜µ,è¿”å›å¼•ç”¨
 		Matrix<T, M, N>& transpose();
-		//×ªÖÃ¾ØÕó£¬·µ»ØÖµ
+		//è½¬ç½®çŸ©é˜µï¼Œè¿”å›å€¼
 		Matrix<T, M, N> transposed() const;
 
-		/*************** ¶şÔª²Ù×÷ ***************/
+		/*************** äºŒå…ƒæ“ä½œ ***************/
 
-		//¾ØÕó * ¾ØÕó
+		//çŸ©é˜µ * çŸ©é˜µ
 		template<int U>
 		Matrix<T, N, U> mult(Matrix<T, M, U> const& rhs) const;
 
-		//¾ØÕó * ÏòÁ¿
+		//çŸ©é˜µ * å‘é‡
 		Vector<T, N> mult(Vector<T, M> const& rhs) const;
 
-		//Í¬¸üĞ¡µÄÏòÁ¿Ïà³Ë
+		//åŒæ›´å°çš„å‘é‡ç›¸ä¹˜
 		Vector<T, N - 1> mult(Vector<T, M - 1> const& rhs, T const& v) const;
 
 		/** Component-wise similarity using epsilon checks. */
 		bool is_similar(Matrix<T, N, M> const& other, T const& epsilon) const;
 
 
-		/*************** µü´úÆ÷ ***************/
+		/*************** è¿­ä»£å™¨ ***************/
 
 		T* begin();
 		T const* begin() const;
 		T* end();
 		T const* end() const;
 
-		/*************** ²Ù×÷·û ***************/
+		/*************** æ“ä½œç¬¦ ***************/
 
 		/** Dereference operator to value array. */
 		T* operator* (void);
@@ -269,7 +269,7 @@ namespace math
 		return matrix;
 	}
 
-	/*************** ¹ÜÀí ***************/
+	/*************** ç®¡ç† ***************/
 
 	template <typename T, int N, int M>
 	inline Matrix<T, N, M>&
@@ -401,7 +401,7 @@ namespace math
 		return ret;
 	}
 
-	/*************** Ò»Ôª²Ù×÷·û ***************/
+	/*************** ä¸€å…ƒæ“ä½œç¬¦ ***************/
 	template <typename T, int N, int M>
 	inline Matrix<T, N, M>&
 		Matrix<T, N, M>::negate(void)
@@ -435,7 +435,7 @@ namespace math
 		return ret;
 	}
 
-	/*************** ¶şÔª²Ù×÷ ***************/
+	/*************** äºŒå…ƒæ“ä½œ ***************/
 
 	template <typename T, int N, int M>
 	template <int U>
@@ -480,7 +480,7 @@ namespace math
 			algo::predicate_epsilon_equal<T>(eps));
 	}
 
-	/*************** µü´úÆ÷ ***************/
+	/*************** è¿­ä»£å™¨ ***************/
 
 	template <typename T, int N, int M>
 	inline T*
@@ -510,7 +510,7 @@ namespace math
 		return m + N * M;
 	}
 
-	/*************** ²Ù×÷·û ***************/
+	/*************** æ“ä½œç¬¦ ***************/
 
 	template <typename T, int N, int M>
 	inline T*
@@ -696,9 +696,9 @@ namespace math
 		return Matrix<T, N, M>(*this) /= rhs;
 	}
 
-	/*************** Êä³öÁ÷ ***************/
+	/*************** è¾“å‡ºæµ ***************/
 
-	//ĞòÁĞ»¯µ½Êä³öÁ÷
+	//åºåˆ—åŒ–åˆ°è¾“å‡ºæµ
 	template<typename T,int N,int M>
 	inline std::ostream&
 		operator<<(std::ostream& os, Matrix<T, N, M> const& m)

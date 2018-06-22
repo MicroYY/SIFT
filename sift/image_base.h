@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <cstdint>
 #include <memory>
@@ -26,8 +26,8 @@ namespace image {
 	};
 
 	/*
-		Í¼Ïñ»ùÀà£¬Ã»ÓĞÀàĞÍĞÅÏ¢
-		Ìá¹©ÁËÍ¼Ïñ³ß´ç¡¢Í¨µÀĞÅÏ¢ºÍÊı¾İ·ÃÎÊµÄ¿ò¼Ü
+		å›¾åƒåŸºç±»ï¼Œæ²¡æœ‰ç±»å‹ä¿¡æ¯
+		æä¾›äº†å›¾åƒå°ºå¯¸ã€é€šé“ä¿¡æ¯å’Œæ•°æ®è®¿é—®çš„æ¡†æ¶
 	*/
 	class ImageBase
 	{
@@ -46,7 +46,7 @@ namespace image {
 		int channels() const;
 
 		/*
-			width,height,channels´æÔÚ0Ê±·µ»Øfalse
+			width,height,channelså­˜åœ¨0æ—¶è¿”å›false
 		*/
 		bool valid() const;
 

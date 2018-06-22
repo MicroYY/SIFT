@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <fstream>
 #include <stdexcept>
 
@@ -63,7 +63,7 @@ Sift::process()
 {
 
 	/*
-		Í¨¹ı²ÉÑù³ß¶È¿Õ¼äºÍ¼ÆËãDoG´´½¨Í¼Æ¬µÄ³ß¶È¿Õ¼ä±í´ï
+		é€šè¿‡é‡‡æ ·å°ºåº¦ç©ºé—´å’Œè®¡ç®—DoGåˆ›å»ºå›¾ç‰‡çš„å°ºåº¦ç©ºé—´è¡¨è¾¾
 	*/
 	if (this->config.verbose_output)
 	{
@@ -81,7 +81,7 @@ Sift::process()
 
 
 	/*
-		¼ì²âDoG¾Ö²¿¼«Öµ
+		æ£€æµ‹DoGå±€éƒ¨æå€¼
 	*/
 	if (this->config.debug_output)
 	{
@@ -96,7 +96,7 @@ Sift::process()
 	}
 
 	/*
-		¾«È·µÄ¹Ø¼üµã¶¨Î»Óë¹ıÂË
+		ç²¾ç¡®çš„å…³é”®ç‚¹å®šä½ä¸è¿‡æ»¤
 	*/
 	if (this->config.debug_output)
 	{
@@ -109,14 +109,14 @@ Sift::process()
 			<< " stable keypoints." << std::endl;
 	}
 
-	//DoG²»ÔÙĞèÒª
+	//DoGä¸å†éœ€è¦
 	for (std::size_t i = 0; i < this->octaves.size(); ++i)
 		this->octaves[i].dog.clear();
 
 
 	/*
-		Éú³É¹Ø¼üµãÃèÊö×Ó
-		¿ÉÄÜ»á´óÓÚ¹Ø¼üµãÊıÁ¿£¬ÒòÎª¶ÔÃ¿¸ö¹Ø¼üµã¿ÉÄÜ»á²úÉú¼¸¸öÃèÊö×Ó
+		ç”Ÿæˆå…³é”®ç‚¹æè¿°å­
+		å¯èƒ½ä¼šå¤§äºå…³é”®ç‚¹æ•°é‡ï¼Œå› ä¸ºå¯¹æ¯ä¸ªå…³é”®ç‚¹å¯èƒ½ä¼šäº§ç”Ÿå‡ ä¸ªæè¿°å­
 	*/
 	if (this->config.verbose_output)
 	{
@@ -145,8 +145,8 @@ Sift::create_octaves()
 	this->octaves.clear();
 
 	/*
-		½¨Á¢ octave -1
-		ÈÏÎªÔ­Ê¼Í¼Æ¬Ä£ºı sigma = 0.5, Ôòdouble sizeÍ¼ sigma = 1
+		å»ºç«‹ octave -1
+		è®¤ä¸ºåŸå§‹å›¾ç‰‡æ¨¡ç³Š sigma = 0.5, åˆ™double sizeå›¾ sigma = 1
 	*/
 	if (this->config.min_octave < 0)
 	{
@@ -157,8 +157,8 @@ Sift::create_octaves()
 	}
 
 	/*
-		first positive octave ½µ²ÉÑù
-		½öÔÚ min_octave > 0 Ê±Ö´ĞĞ
+		first positive octave é™é‡‡æ ·
+		ä»…åœ¨ min_octave > 0 æ—¶æ‰§è¡Œ
 	*/
 	image::FloatImage::ConstPtr img = this->orig;
 	for (int i = 0; i < this->config.min_octave; ++i)
@@ -166,15 +166,15 @@ Sift::create_octaves()
 
 
 	/*
-		´Óimg´´½¨ĞÂoctave
-		sigma * 2,ÎªÏÂÒ»²ãoctave»ñÈ¡ĞÂµÄbase image
+		ä»imgåˆ›å»ºæ–°octave
+		sigma * 2,ä¸ºä¸‹ä¸€å±‚octaveè·å–æ–°çš„base image
 	*/
 
 	float img_sigma = this->config.inherent_blur_sigma;
 	for (int i = std::max(0, this->config.min_octave);
 		i <= this->config.max_octave; ++i)
 	{
-		//TODO: µÚ¶ş´ÎÑ­»·¿ªÊ¼£¬ºóÁ½¸ösigmaºóÏàÍ¬?????
+		//TODO: ç¬¬äºŒæ¬¡å¾ªç¯å¼€å§‹ï¼Œåä¸¤ä¸ªsigmaåç›¸åŒ?????
 		this->add_octave(img, img_sigma, this->config.base_blur_sigma);
 		img = image::rescale_half_size_gaussian<float>(img);
 		img_sigma = this->config.base_blur_sigma;
@@ -186,49 +186,49 @@ void
 Sift::add_octave(image::FloatImage::ConstPtr image, float has_sigma, float target_sigma)
 {
 	/*
-		has_sigma imageÒÑ¾­±»has_sigmaÆ½»¬¹ıÁË
-		target_sigma ÒªÇó¶Ôimage½øĞĞµÄÆ½»¬
-		ÔÚhas_sigmaµÄ»ù´¡ÉÏÆ½»¬µ½target_sigma
+		has_sigma imageå·²ç»è¢«has_sigmaå¹³æ»‘è¿‡äº†
+		target_sigma è¦æ±‚å¯¹imageè¿›è¡Œçš„å¹³æ»‘
+		åœ¨has_sigmaçš„åŸºç¡€ä¸Šå¹³æ»‘åˆ°target_sigma
 		L * g(sigma1) * g(sigma2) = L * g(sqrt(sigma1^2 + sigma2^2)),
 		sigma = sqrt(target_sigma^2 - has_sigma^2)
 	*/
 	float sigma = std::sqrt(MATH_POW2(target_sigma) - MATH_POW2(has_sigma));
 
-	//TODO:  ÏÈÅĞ¶ÏÔÙ¼ÆËãsigma???
+	//TODO:  å…ˆåˆ¤æ–­å†è®¡ç®—sigma???
 
-	//Æ½»¬²»¹»Ê±Ôö¼ÓÆ½»¬
-	//ÏÂÒ»´ÎÄ£ºıÓÉbase½øÒ»²½Ä£ºıµÃµ½
+	//å¹³æ»‘ä¸å¤Ÿæ—¶å¢åŠ å¹³æ»‘
+	//ä¸‹ä¸€æ¬¡æ¨¡ç³Šç”±baseè¿›ä¸€æ­¥æ¨¡ç³Šå¾—åˆ°
 	image::FloatImage::Ptr base = (target_sigma > has_sigma
 		? image::blur_gaussian<float>(image, sigma)
 		: image->duplicate());
 
-	//´´½¨ĞÂµÄoctave²¢´æ·ÅÔÚoctaveµÄ¼¯ºÏÖĞ
+	//åˆ›å»ºæ–°çš„octaveå¹¶å­˜æ”¾åœ¨octaveçš„é›†åˆä¸­
 	this->octaves.push_back(Octave());
 	Octave& oct = this->octaves.back();
-	//°Ñbase¼ÓÈë¸ÃoctaveµÄ¸ßË¹¿Õ¼ä
+	//æŠŠbaseåŠ å…¥è¯¥octaveçš„é«˜æ–¯ç©ºé—´
 	oct.img.push_back(base);
 
-	//  k  ³ß¶È¿Õ¼äÖ®¼äµÄ³£ÊıÒò×Ó
+	//  k  å°ºåº¦ç©ºé—´ä¹‹é—´çš„å¸¸æ•°å› å­
 	//  k = 2^(1/s)
 	float const k = std::pow(2.0f, 1.0f / this->config.num_samples_per_octave);
 	sigma = target_sigma;
 
-	//ÔÚÕâÒ»×éoctave´´½¨Ê£ÓàµÄs+2¸ö¸ßË¹³ß¶È¿Õ¼ä
+	//åœ¨è¿™ä¸€ç»„octaveåˆ›å»ºå‰©ä½™çš„s+2ä¸ªé«˜æ–¯å°ºåº¦ç©ºé—´
 	for (int i = 1; i < this->config.num_samples_per_octave + 3; ++i)
 	{
-		//ÒªÇó´ïµ½µÄ¸ßË¹Ä£ºı sigmak = sigma * k
+		//è¦æ±‚è¾¾åˆ°çš„é«˜æ–¯æ¨¡ç³Š sigmak = sigma * k
 		float sigmak = sigma * k;
 		float blur_sigma = std::sqrt(MATH_POW2(sigmak) - MATH_POW2(sigma));
 
-		//´´½¨ĞÂµÄ³ß¶È¿Õ¼äÑù±¾ sigmak
+		//åˆ›å»ºæ–°çš„å°ºåº¦ç©ºé—´æ ·æœ¬ sigmak
 		image::FloatImage::Ptr img = image::blur_gaussian<float>(base, blur_sigma);
 		oct.img.push_back(img);
 
-		//´´½¨¸ßË¹²î·ÖDoG
+		//åˆ›å»ºé«˜æ–¯å·®åˆ†DoG
 		image::FloatImage::Ptr dog = image::subtract<float>(img, base);
 		oct.dog.push_back(dog);
 
-		//¸üĞÂÏÂÒ»´Î×ö¸ßË¹Ä£ºıµÄ»ù´¡Í¼ÏñºÍsigma
+		//æ›´æ–°ä¸‹ä¸€æ¬¡åšé«˜æ–¯æ¨¡ç³Šçš„åŸºç¡€å›¾åƒå’Œsigma
 		base = img;
 		sigma = sigmak;
 
@@ -242,22 +242,22 @@ Sift::extrema_detection()
 	this->keypoints.clear();
 
 	/*
-		Ã¿Ò»²ãoctave¼ì²â¹Ø¼üµã
+		æ¯ä¸€å±‚octaveæ£€æµ‹å…³é”®ç‚¹
 	*/
 	for (std::size_t i = 0; i < this->octaves.size(); ++i)
 	{
 		Octave const& oct(this->octaves[i]);
 
-		//Ñ­»·Èı´Î£¬ÕÒ³öÈı¸ö³ß¶È
+		//å¾ªç¯ä¸‰æ¬¡ï¼Œæ‰¾å‡ºä¸‰ä¸ªå°ºåº¦
 		for (int s = 0; s < (int)oct.dog.size() - 2; ++s)
 		{
-			//Ã¿²ãoctaveÈ¡³öÈıÕÅDoG²¢¼ì²â
+			//æ¯å±‚octaveå–å‡ºä¸‰å¼ DoGå¹¶æ£€æµ‹
 			image::FloatImage::ConstPtr samples[3] =
 			{
 				// 0 1 2
 				// 1 2 3
 				// 2 3 4
-				//ÖĞ¼äµÄÎªÊµ¼ÊÑ°ÕÒ¼«ÖµµãµÄ³ß¶È
+				//ä¸­é—´çš„ä¸ºå®é™…å¯»æ‰¾æå€¼ç‚¹çš„å°ºåº¦
 				oct.dog[s + 0],
 				oct.dog[s + 1],
 				oct.dog[s + 2]
@@ -269,30 +269,30 @@ Sift::extrema_detection()
 }
 
 
-// TODO: ÈıÍ¨µÀÍ¼Æ¬¼«Öµ£¿
+// TODO: ä¸‰é€šé“å›¾ç‰‡æå€¼ï¼Ÿ
 std::size_t
 Sift::extrema_detection(image::FloatImage::ConstPtr s[3], int oi, int si)
 {
-	// s  ÈıÕÅDoG
-	// oi µ±Ç°octaveË÷Òı
-	// si ³ß¶ÈÑù±¾Ë÷Òı  £¬¼´0 1 2 ÆäÖĞÖ®Ò»
+	// s  ä¸‰å¼ DoG
+	// oi å½“å‰octaveç´¢å¼•
+	// si å°ºåº¦æ ·æœ¬ç´¢å¼•  ï¼Œå³0 1 2 å…¶ä¸­ä¹‹ä¸€
 
 	int const w = s[1]->width();
 	int const h = s[1]->height();
 
-	/*       ÁÚÓòÏà¶ÔÖĞĞÄ½ÚµãµÄÆ«ÒÆ       */
+	/*       é‚»åŸŸç›¸å¯¹ä¸­å¿ƒèŠ‚ç‚¹çš„åç§»       */
 	int noff[9] = { -1 - w,0 - w,1 - w,-1,0,1,-1 + w,0 + w,1 + w };
 
 	/*
-		µü´ús[1]ÖĞµÄËùÓĞÏñËØ£¬¼ì²éÊÇ·ñÓĞÏñËØÎª¼«Öµ
+		è¿­ä»£s[1]ä¸­çš„æ‰€æœ‰åƒç´ ï¼Œæ£€æŸ¥æ˜¯å¦æœ‰åƒç´ ä¸ºæå€¼
 	*/
 	int detected = 0;
 	int off = w;
-	//±ßÔµ²¿·ÖµÄ²»¼ì²â
+	//è¾¹ç¼˜éƒ¨åˆ†çš„ä¸æ£€æµ‹
 	for (int y = 1; y < h - 1; ++y, off += w)
 		for (int x = 1; x < w - 1; ++x)
 		{
-			//´ÓË÷ÒıÎª w+1 µÄÏñËØ¿ªÊ¼£¬¼´µÚÒ»¸ö·Ç±ßÔµÏñËØ
+			//ä»ç´¢å¼•ä¸º w+1 çš„åƒç´ å¼€å§‹ï¼Œå³ç¬¬ä¸€ä¸ªéè¾¹ç¼˜åƒç´ 
 			//   w+1 w+2 w+3... 2w-2
 			//  2w+1 2w+2 2w+3...3w-2
 			//  ...
@@ -300,10 +300,10 @@ Sift::extrema_detection(image::FloatImage::ConstPtr s[3], int oi, int si)
 
 			bool largest = true;
 			bool smallest = true;
-			//ÖĞĞÄµãÏñËØÖµ
+			//ä¸­å¿ƒç‚¹åƒç´ å€¼
 			float center_value = s[1]->at(idx);
 
-			//±éÀúÖÜÎ§26¸öÏñËØÅĞ¶ÏÊÇ·ñÎª¼«Öµ
+			//éå†å‘¨å›´26ä¸ªåƒç´ åˆ¤æ–­æ˜¯å¦ä¸ºæå€¼
 			for (int l = 0; (largest || smallest) && l < 3; ++l)
 				for (int i = 0; (largest || smallest) && i < 9; ++i)
 				{
@@ -314,15 +314,15 @@ Sift::extrema_detection(image::FloatImage::ConstPtr s[3], int oi, int si)
 					if (s[l]->at(idx + noff[i]) <= center_value)
 						smallest = false;
 				}
-			//·Ç¼«Öµ£¬ÅĞ¶ÏÏÂÒ»¸öÏñËØ
+			//éæå€¼ï¼Œåˆ¤æ–­ä¸‹ä¸€ä¸ªåƒç´ 
 			if (!smallest && !largest)
 				continue;
 
 			Keypoint kp;
-			kp.octave = oi;							///octaveË÷Òı
-			kp.x = static_cast<float>(x);			///ÏñËØxÖáÎ»ÖÃ
-			kp.y = static_cast<float>(y);			///ÏñËØyÖáÎ»ÖÃ
-			kp.sample = static_cast<float>(si);		///³ß¶ÈÑù±¾Ë÷Òı£¬¼´ 0 1 2ÆäÖĞÖ®Ò»
+			kp.octave = oi;							///octaveç´¢å¼•
+			kp.x = static_cast<float>(x);			///åƒç´ xè½´ä½ç½®
+			kp.y = static_cast<float>(y);			///åƒç´ yè½´ä½ç½®
+			kp.sample = static_cast<float>(si);		///å°ºåº¦æ ·æœ¬ç´¢å¼•ï¼Œå³ 0 1 2å…¶ä¸­ä¹‹ä¸€
 			this->keypoints.push_back(kp);
 			detected += 1;
 		}
@@ -334,16 +334,16 @@ void
 Sift::keypoint_localization()
 {
 	/*
-		µü´úËùÓĞ¹Ø¼üµã£¬Í¨¹ıÌ©ÀÕÕ¹¿ªÊ½¾«È·¶¨Î»¼«Öµ
+		è¿­ä»£æ‰€æœ‰å…³é”®ç‚¹ï¼Œé€šè¿‡æ³°å‹’å±•å¼€å¼ç²¾ç¡®å®šä½æå€¼
 	*/
 	int num_singular = 0;
 	int num_keypoints = 0;
 	for (std::size_t i = 0; i < this->keypoints.size(); ++i)
 	{
-		//¸´ÖÆ¹Ø¼üµã
+		//å¤åˆ¶å…³é”®ç‚¹
 		Keypoint kp(this->keypoints[i]);
 
-		//»ñµÃ¶ÔÓ¦µÄoctave ºÍDoG
+		//è·å¾—å¯¹åº”çš„octave å’ŒDoG
 		Octave const& oct(this->octaves[kp.octave - this->config.min_octave]);
 		int sample = static_cast<int>(kp.sample);
 		image::FloatImage::ConstPtr dogs[3] =
@@ -356,31 +356,31 @@ Sift::keypoint_localization()
 
 		int const w = dogs[0]->width();
 		int const h = dogs[0]->height();
-		//¹Ø¼üµãÎ»ÖÃµÄintºÍfloat,¸¡µã¿ÉÒÔÈÏÎªÊÇÆ«ÒÆ
+		//å…³é”®ç‚¹ä½ç½®çš„intå’Œfloat,æµ®ç‚¹å¯ä»¥è®¤ä¸ºæ˜¯åç§»
 		int ix = static_cast<int>(kp.x);
 		int iy = static_cast<int>(kp.y);
 		int is = static_cast<int>(kp.sample);
 		float fx, fy, fs;
 
-		//Ò»½×¶ş½×µ¼
+		//ä¸€é˜¶äºŒé˜¶å¯¼
 		float Dx, Dy, Ds;
 		float Dxx, Dyy, Dss;
 		float Dxy, Dxs, Dys;
 
 		/*
-			Ê¹ÓÃÌ©ÀÕÕ¹¿ªµ½¶ş½×¶¨Î»¹Ø¼üµã
-			¹Ø¼üµãÆ«ÀëÖĞĞÄÏñËØ >0.6 Ê±·´¸´µü´ú
+			ä½¿ç”¨æ³°å‹’å±•å¼€åˆ°äºŒé˜¶å®šä½å…³é”®ç‚¹
+			å…³é”®ç‚¹åç¦»ä¸­å¿ƒåƒç´  >0.6 æ—¶åå¤è¿­ä»£
 		*/
 #define AT(S,OFF) (dogs[S]->at(px + OFF))
 
-		//µü´ú5´Î
+		//è¿­ä»£5æ¬¡
 		for (int j = 0; j < 5; ++j)
 		{
-			//pxÏñËØË÷Òı
+			//pxåƒç´ ç´¢å¼•
 			std::size_t px = iy * w + ix;
 
 
-			// Dx Dy Ds Ò»½×Æ«µ¼
+			// Dx Dy Ds ä¸€é˜¶åå¯¼
 			Dx = (AT(1, 1) - AT(1, -1)) * 0.5f;
 			Dy = (AT(1, w) - AT(1, -w)) * 0.5f;
 			Ds = (AT(2, 0) - AT(0, 0))  * 0.5f;
@@ -393,16 +393,16 @@ Sift::keypoint_localization()
 			Dxs = (AT(2, 1)     + AT(0, -1)     - AT(2, -1)     - AT(0, 1))     * 0.25f;
 			Dys = (AT(2, w)     + AT(0, -w)     - AT(2, -w)     - AT(0, w))     * 0.25f;
 
-			//Hessian¾ØÕóA
+			//HessiançŸ©é˜µA
 			math::Matrix3f A;
 			A[0] = Dxx; A[1] = Dxy; A[2] = Dxs;
 			A[3] = Dxy; A[4] = Dyy; A[5] = Dys;
 			A[6] = Dxs; A[7] = Dys; A[8] = Dss;
 
-			//¼ÆËãĞĞÁĞÊ½
+			//è®¡ç®—è¡Œåˆ—å¼
 			float detA = math::matrix_determinant(A);
-			//Èç¹ûĞĞÁĞÊ½Îª0£¬singular matrixÆæÒì¾ØÕó
-			//µü´úÍê³É
+			//å¦‚æœè¡Œåˆ—å¼ä¸º0ï¼Œsingular matrixå¥‡å¼‚çŸ©é˜µ
+			//è¿­ä»£å®Œæˆ
 			if (MATH_EPSILON_EQ(detA, 0.0f, 1e-15f))
 			{
 				num_singular += 1;
@@ -410,19 +410,19 @@ Sift::keypoint_localization()
 				break;
 			}
 
-			//Äæ¾ØÕóÈ·¶¨¾«È·µã
+			//é€†çŸ©é˜µç¡®å®šç²¾ç¡®ç‚¹
 			A = math::matrix_inverse(A, detA);
 			math::Vec3f b(-Dx, -Dy, -Ds);
-			//hessian¾ØÕóµÄÄæ¾ØÕó = Äæ¾ØÕóµÄhessian¾ØÕó£¿£¿£¿
+			//hessiançŸ©é˜µçš„é€†çŸ©é˜µ = é€†çŸ©é˜µçš„hessiançŸ©é˜µï¼Ÿï¼Ÿï¼Ÿ
 			b = A * b;
 			fx = b[0]; fy = b[1]; fs = b[2];
 
-			//¼ì²é¾«È·Î»ÖÃÊÇ·ñÔ¶ÀëÏñËØÖĞĞÄ
+			//æ£€æŸ¥ç²¾ç¡®ä½ç½®æ˜¯å¦è¿œç¦»åƒç´ ä¸­å¿ƒ
 			int dx = (fx > 0.6f && ix < w - 2) * 1 + (fx < -0.6f && ix > 1) * -1;
 			int dy = (fy > 0.6f && iy < h - 2) * 1 + (fy < -0.6f && iy > 1) * -1;
 
-			//Èç¹û¾«È·Î»ÖÃÀëÁíÒ»¸öÏñËØ¸ü½ü
-			//ÖØĞÂ¶¨Î»
+			//å¦‚æœç²¾ç¡®ä½ç½®ç¦»å¦ä¸€ä¸ªåƒç´ æ›´è¿‘
+			//é‡æ–°å®šä½
 			if (dx != 0 || dy != 0)
 			{
 				ix += dx;
@@ -430,47 +430,47 @@ Sift::keypoint_localization()
 				continue;
 			}
 
-			//¾«È·Î»ÖÃÂú×ãÒªÇó
+			//ç²¾ç¡®ä½ç½®æ»¡è¶³è¦æ±‚
 			break;
 		}
 
-		//¼ÆËãD(x),´øÈëÌ©ÀÕ¹«Ê½£¬Ò»½×µ¼Îª0
+		//è®¡ç®—D(x),å¸¦å…¥æ³°å‹’å…¬å¼ï¼Œä¸€é˜¶å¯¼ä¸º0
 		float val = dogs[1]->at(ix, iy, 0) + 0.5f * (Dx * fx + Dy * fy + Ds * fs);
 
-		//¼ÆËã±ßÔµÏìÓ¦ Tr(H)^2 / Det(H)
-		// 2 * 2 hessian¾ØÕó
-		//¾ØÕóµÄ¼£
+		//è®¡ç®—è¾¹ç¼˜å“åº” Tr(H)^2 / Det(H)
+		// 2 * 2 hessiançŸ©é˜µ
+		//çŸ©é˜µçš„è¿¹
 		float hessian_trace = Dxx + Dyy;
-		//ĞĞÁĞÊ½
+		//è¡Œåˆ—å¼
 		float hessian_det = Dxx * Dyy - MATH_POW2(Dxy);
-		//±ßÔµÏìÓ¦Öµ
+		//è¾¹ç¼˜å“åº”å€¼
 		float hessian_score = MATH_POW2(hessian_trace) / hessian_det;
-		// £¨r+1)^2/r
+		// ï¼ˆr+1)^2/r
 		float score_thres = MATH_POW2(this->config.edge_ratio_threshold + 1.0f)
 			/ this->config.edge_ratio_threshold;
 
-		//ÉèÖÃ×îÖÕ¾«È·¹Ø¼üµã
+		//è®¾ç½®æœ€ç»ˆç²¾ç¡®å…³é”®ç‚¹
 		kp.x = (float)ix + fx;
 		kp.y = (float)iy + fy;
 		kp.sample = (float)is + fs;
 
 		/*
-			¶ªÆúÒÔÏÂ¹Ø¼üµã
+			ä¸¢å¼ƒä»¥ä¸‹å…³é”®ç‚¹
 		 * 1. low contrast (value of DoG function at keypoint),
-			µÍ¶Ô±È¶È ¸ßË¹²î·Öº¯ÊıÖµ
+			ä½å¯¹æ¯”åº¦ é«˜æ–¯å·®åˆ†å‡½æ•°å€¼
 
 		 * 2. negative hessian determinant (curvatures with different sign),
 		 *    Note that negative score implies negative determinant.
-			¸ºµÄhessian¾ØÕóĞĞÁĞÊ½
+			è´Ÿçš„hessiançŸ©é˜µè¡Œåˆ—å¼
 
 		 * 3. large edge response (large hessian score),
-			¹ı´óµÄ±ßÔµÏìÓ¦
+			è¿‡å¤§çš„è¾¹ç¼˜å“åº”
 
 		 * 4. unstable keypoint accurate locations,
-			²»ÎÈ¶¨µÄ¹Ø¼üµã¾«È·Î»ÖÃ
+			ä¸ç¨³å®šçš„å…³é”®ç‚¹ç²¾ç¡®ä½ç½®
 
 		 * 5. keypoints beyond the scale space boundary.
-			³¬¹ı³ß¶È¿Õ¼ä±ß½çµÄ¹Ø¼üµã
+			è¶…è¿‡å°ºåº¦ç©ºé—´è¾¹ç•Œçš„å…³é”®ç‚¹
 		*/
 
 		if (std::abs(val) < this->config.contrast_threshold
@@ -520,7 +520,7 @@ Sift::descriptor_generation()
 	this->generate_grad_ori_images(octave);
 
 	/*
-		¶ÔËùÓĞ¹Ø¼üµã¼ÆËãÃèÊö×Ó
+		å¯¹æ‰€æœ‰å…³é”®ç‚¹è®¡ç®—æè¿°å­
 	*/
 	for (std::size_t i = 0; i < this->keypoints.size(); ++i)
 	{
@@ -529,13 +529,13 @@ Sift::descriptor_generation()
 		/* Generate new gradient and orientation images if octave changed. */
 		if (kp.octave > octave_index)
 		{
-			//Çå³ı¾ÉµÄ
+			//æ¸…é™¤æ—§çš„
 			if (octave)
 			{
 				octave->grad.clear();
 				octave->ori.clear();
 			}
-			//ÉèÖÃĞÂµÄgradient ºÍorientation
+			//è®¾ç½®æ–°çš„gradient å’Œorientation
 			octave_index = kp.octave;
 			octave = &this->octaves[octave_index - this->config.min_octave];
 			this->generate_grad_ori_images(octave);
@@ -546,12 +546,12 @@ Sift::descriptor_generation()
 		}
 
 
-		//·½Ïò¸³Öµ
+		//æ–¹å‘èµ‹å€¼
 		std::vector<float> orientations;
 		orientations.reserve(8);
 		this->orientation_assignment(kp, octave, orientations);
 
-		//ÌØÕ÷ÌáÈ¡
+		//ç‰¹å¾æå–
 		for (std::size_t j = 0; j < orientations.size(); ++j)
 		{
 			Descriptor desc;
@@ -580,7 +580,7 @@ Sift::generate_grad_ori_images(Octave* octave)
 
 	for (std::size_t i = 0; i < octave->img.size(); ++i)
 	{
-		// TODO: imgµ¥Í¨µÀ?????
+		// TODO: imgå•é€šé“?????
 		image::FloatImage::ConstPtr img = octave->img[i];
 		image::FloatImage::Ptr grad = image::FloatImage::create(width, height, 1);
 		image::FloatImage::Ptr ori = image::FloatImage::create(width, height, 1);
@@ -600,7 +600,7 @@ Sift::generate_grad_ori_images(Octave* octave)
 				float p1y = img->at(image_iter + width);
 				float dy = 0.5f * (p1y - m1y);
 
-				//Ìİ¶ÈµÄÄ£ÖµºÍ·½Ïò£¬·½ÏòĞ¡ÓÚ0Ôò¼Ó2pi
+				//æ¢¯åº¦çš„æ¨¡å€¼å’Œæ–¹å‘ï¼Œæ–¹å‘å°äº0åˆ™åŠ 2pi
 				float atan2f = std::atan2(dy, dx);
 				grad->at(image_iter) = std::sqrt(dx * dx + dy * dy);
 				ori->at(image_iter) = atan2f < 0.0f
@@ -619,11 +619,11 @@ Sift::orientation_assignment(Keypoint const& kp,
 	int const nbins = 36;
 	float const nbinsf = static_cast<float>(nbins);
 
-	//36¸öÖùµÄÖ±·½Í¼
+	//36ä¸ªæŸ±çš„ç›´æ–¹å›¾
 	float hist[nbins];
 	std::fill(hist, hist + nbins, 0.0f);
 
-	//¶Ô x y sample ËÄÉáÎåÈë£¬ÕÒµ½×î½üµÄ³ß¶ÈÑù±¾
+	//å¯¹ x y sample å››èˆäº”å…¥ï¼Œæ‰¾åˆ°æœ€è¿‘çš„å°ºåº¦æ ·æœ¬
 	int const ix = static_cast<int>(kp.x + 0.5f);
 	int const iy = static_cast<int>(kp.y + 0.5f);
 	int const is = static_cast<int>(math::round(kp.sample));
@@ -641,15 +641,15 @@ Sift::orientation_assignment(Keypoint const& kp,
 	* has very little weight beyond the window. The value 1.5 is from
 	* the SIFT paper. If the window goes beyond the image boundaries,
 	* the keypoint is discarded.
-	ÁÚÓò´°¿Ú°ë¾¶ 3 * 1.5 * sigma
+	é‚»åŸŸçª—å£åŠå¾„ 3 * 1.5 * sigma
 	*/
 	float const sigma_factor = 1.5f;
 	int win = static_cast<int>(sigma * sigma_factor * 3.0f);
 	if (ix < win || ix + win >= width || iy < win || iy + win >= height)
 		return;
 
-	// max_dist×î´ó¾àÀëµÄÆ½·½£¬dxf dyf ¾«È·µãÏà¶ÔÈ¡ÕûµãµÄÆ«ÒÆ
-	// center ÖĞĞÄË÷Òı
+	// max_distæœ€å¤§è·ç¦»çš„å¹³æ–¹ï¼Œdxf dyf ç²¾ç¡®ç‚¹ç›¸å¯¹å–æ•´ç‚¹çš„åç§»
+	// center ä¸­å¿ƒç´¢å¼•
 	int center = iy * width + ix;
 	float const dxf = kp.x - static_cast<float>(ix);
 	float const dyf = kp.y - static_cast<float>(iy);
@@ -658,7 +658,7 @@ Sift::orientation_assignment(Keypoint const& kp,
 
 	for (int dy = -win; dy <= win; ++dy)
 	{
-		//Ë÷ÒıµÄyÖáÆ«ÒÆ
+		//ç´¢å¼•çš„yè½´åç§»
 		int const yoff = dy * width;
 		for (int dx = -win; dx <= win; ++dx)
 		{
@@ -666,27 +666,27 @@ Sift::orientation_assignment(Keypoint const& kp,
 			if (dist > max_dist)
 				continue;
 
-			// gm ·ùÖµ gradient magnitude
-			// go ·½Ïò gradient orientation 
+			// gm å¹…å€¼ gradient magnitude
+			// go æ–¹å‘ gradient orientation 
 			float gm = grad->at(center + yoff + dx);
 			float go = ori->at(center + yoff + dx);
-			//¾àÀëÔ½Ô¶ ±ÈÖØÔ½Ğ¡
+			//è·ç¦»è¶Šè¿œ æ¯”é‡è¶Šå°
 			float weight = math::gaussian_xx(dist, sigma * sigma_factor);
-			// ¼ÆËãÔÚÄÄ¸öÖùÖĞ    36 * ¦È / 2pi  10¡ãÒ»¸öÖù£¬¹²36¸öÖù
+			// è®¡ç®—åœ¨å“ªä¸ªæŸ±ä¸­    36 * Î¸ / 2pi  10Â°ä¸€ä¸ªæŸ±ï¼Œå…±36ä¸ªæŸ±
 			int bin = static_cast<int>(nbinsf * go / (2.0f * MATH_PI));
 			bin = math::clamp(bin, 0, nbins - 1);
 			hist[bin] += gm * weight;
 		}
 	}
 
-	//Æ½»¬Ö±·½Í¼
+	//å¹³æ»‘ç›´æ–¹å›¾
 	for (int i = 0; i < 6; ++i)
 	{
 		float first = hist[0];
 		float prev = hist[nbins - 1];
 		for (int j = 0; j < nbins - 1; ++j)
 		{
-			//ÓëÇ°ºóÁ½¸öbinÆ½¾ù
+			//ä¸å‰åä¸¤ä¸ªbinå¹³å‡
 			float current = hist[j];
 			hist[j] = (prev + current + hist[j + 1]) / 3.0f;
 			prev = current;
@@ -694,32 +694,32 @@ Sift::orientation_assignment(Keypoint const& kp,
 		hist[nbins - 1] = (prev + hist[nbins - 1] + first) / 3.0f;
 	}
 
-	//ÕÒ³öÖ±·½Í¼µÄ×î¸ß·å
+	//æ‰¾å‡ºç›´æ–¹å›¾çš„æœ€é«˜å³°
 	float maxh = *std::max_element(hist, hist + nbins);
 
-	//Ñ°ÕÒ·åÖµ´óÓÚÖ÷·åÖµ80%µÄ·å
+	//å¯»æ‰¾å³°å€¼å¤§äºä¸»å³°å€¼80%çš„å³°
 	for (int i = 0; i < nbins; ++i)
 	{
-		// TODO: ÊÇ·ñ¿ÉÒÔ ²»¼Ónbins?
-		//Ç°ºóÁ½¸öÖù
+		// TODO: æ˜¯å¦å¯ä»¥ ä¸åŠ nbins?
+		//å‰åä¸¤ä¸ªæŸ±
 		float h0 = hist[(i + nbins - 1) % nbins];
 		float h1 = hist[i];
 		float h2 = hist[(i + 1) % nbins];
 
-		//ÕâĞ©·å±ØĞëÊÇ¾Ö²¿¼«Öµ
+		//è¿™äº›å³°å¿…é¡»æ˜¯å±€éƒ¨æå€¼
 		if (h1 <= 0.8f * maxh || h1 <= h0 || h1 <= h2)
 			continue;
 
 
 		/*
-			¶ş´Î²åÖµ
+			äºŒæ¬¡æ’å€¼
 			f(x) = ax^2 + bx + c, f(-1) = h0, f(0) = h1, f(1) = h2
 			--> a = 1/2 (h0 - 2h1 + h2), b = 1/2 (h2 - h0), c = h1.
 			x = f'(x) = 2ax + b = 0 --> x = -1/2 * (h2 - h0) / (h0 - 2h1 + h2)
 
-			x ¿´×÷ÊÇÏà¶ÔÓÚiµÄÆ«ÒÆ
+			x çœ‹ä½œæ˜¯ç›¸å¯¹äºiçš„åç§»
 			TODO why + 0.5f?????
-			o·½Ïò
+			oæ–¹å‘
 		*/
 		float x = -0.5f * (h2 - h0) / (h0 - 2.0f * h1 + h2);
 		float o = 2.0f * MATH_PI * (x + (float)i + 0.5f) / nbinsf;
@@ -733,14 +733,14 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 	Octave const* octave)
 {
 	/*
-		×îÖÕµÄÌØÕ÷ÏòÁ¿´óĞ¡ PXB * PXB * OHB = 128
-		4 * 4µÄ´°¿Ú 8¸ö·½ÏòµÄÌİ¶ÈĞÅÏ¢
+		æœ€ç»ˆçš„ç‰¹å¾å‘é‡å¤§å° PXB * PXB * OHB = 128
+		4 * 4çš„çª—å£ 8ä¸ªæ–¹å‘çš„æ¢¯åº¦ä¿¡æ¯
 	*/
 
 	int const PXB = 4;
 	int const OHB = 8;
 
-	//ËÄÉáÎåÈëºóµÄ×ø±êºÍÆ«ÒÆ
+	//å››èˆäº”å…¥åçš„åæ ‡å’Œåç§»
 	int const ix = static_cast<int>(kp.x + 0.5f);
 	float const dxf = kp.x - static_cast<float>(ix);
 
@@ -758,7 +758,7 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 
 	desc.data.fill(0.0f);
 
-	//Ìİ¶È·½ÏòµÄĞı×ª
+	//æ¢¯åº¦æ–¹å‘çš„æ—‹è½¬
 	float const sino = std::sin(desc.orientation);
 	float const coso = std::cos(desc.orientation);
 
@@ -773,7 +773,7 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 
 	float const binsize = 3.0f * sigma;
 	int win = MATH_SQRT2 * binsize * (float)(PXB + 1) * 0.5f;
-	//Èç¹û¹Ø¼üµãÏòÍâ²»ÄÜ¹¹³ÉwinÎª±ß³¤µÄ¾ØĞÎ£¬·µ»Øfalse
+	//å¦‚æœå…³é”®ç‚¹å‘å¤–ä¸èƒ½æ„æˆwinä¸ºè¾¹é•¿çš„çŸ©å½¢ï¼Œè¿”å›false
 	if (ix < win || ix + win >= width || iy < win || iy + win >= height)
 		return false;
 
@@ -784,12 +784,12 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 	* corresponding bin.
 	*/
 
-	//¹Ø¼üµãÎ»ÖÃË÷Òı
+	//å…³é”®ç‚¹ä½ç½®ç´¢å¼•
 	int const center = iy * width + ix;
-	//±éÀú´°¿ÚÄÚµÄËùÓĞÏñËØ
+	//éå†çª—å£å†…çš„æ‰€æœ‰åƒç´ 
 	for (int dy = -win; dy <= win; ++dy)
 	{
-		//yÖáÔì³ÉµÄÆ«ÒÆ
+		//yè½´é€ æˆçš„åç§»
 		int const yoff = dy * width;
 		for (int dx = -win; dx <= win; ++dx)
 		{
@@ -799,7 +799,7 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 			if (theta < 0.0f)
 				theta += 2.0f * MATH_PI;
 
-			//¼ÆËãÏà¶Ô´°¿ÚµÄĞ¡Êı×ø±ê
+			//è®¡ç®—ç›¸å¯¹çª—å£çš„å°æ•°åæ ‡
 			float const winx = (float)dx - dxf;
 			float const winy = (float)dy - dyf;
 
@@ -811,19 +811,19 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 			* of the first bin center in the three dimensional histogram.
 			*/
 			float binoff = (float)(PXB - 1) / 2.0f;
-			//ÏñËØÔÚ´°¿ÚÖĞµÄÊµ¼ÊÎ»ÖÃ x y 
+			//åƒç´ åœ¨çª—å£ä¸­çš„å®é™…ä½ç½® x y 
 			float binx = (coso * winx + sino * winy) / binsize + binoff;
 			float biny = (-sino * winx + coso * winy) / binsize + binoff;
-			//ÏñËØÊµ¼Ê·½Ïò
+			//åƒç´ å®é™…æ–¹å‘
 			float bint = theta * (float)OHB / (2.0f * MATH_PI) - 0.5f;
 
-			//¼ÆËãÔ²ĞÎ´°¿Ú±ÈÖØ
-			//°´ 0.5d ¼ÓÈ¨
+			//è®¡ç®—åœ†å½¢çª—å£æ¯”é‡
+			//æŒ‰ 0.5d åŠ æƒ
 			float gaussian_sigma = 0.5f*(float)PXB;
 			float gaussian_weight = math::gaussian_xx
 			(MATH_POW2(binx - binoff) + MATH_POW2(biny - binoff),
 				gaussian_sigma);
-			//¼ÓÈ¨Ä£Öµ
+			//åŠ æƒæ¨¡å€¼
 			float contrib = mod * gaussian_weight;
 
 			/*
@@ -831,13 +831,13 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 			* Each sample is inserted into 8 bins. Some of these bins may
 			* not exist, because the sample is outside the keypoint window.
 			*/
-			//ÁÚ½üµÄ x y ¼´ĞĞºÍÁĞË÷Òı
+			//é‚»è¿‘çš„ x y å³è¡Œå’Œåˆ—ç´¢å¼•
 			int bxi[2] = { (int)std::floor(binx),(int)std::floor(binx) + 1 };
 			int byi[2] = { (int)std::floor(biny),(int)std::floor(biny) + 1 };
-			//ÁÚ½üµÄÁ½¸ö·½Ïò
+			//é‚»è¿‘çš„ä¸¤ä¸ªæ–¹å‘
 			int bti[2] = { (int)std::floor(bint),(int)std::floor(bint) + 1 };
 
-			//x y ·½Ïò Èı¸ö¾àÀëÓ°ÏìÈ¨ÖØ 
+			//x y æ–¹å‘ ä¸‰ä¸ªè·ç¦»å½±å“æƒé‡ 
 			float weights[3][2] = {
 				{ (float)bxi[1] - binx, 1.0f - ((float)bxi[1] - binx) },
 				{ (float)byi[1] - biny, 1.0f - ((float)byi[1] - biny) },
@@ -851,9 +851,9 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 				bti[1] -= OHB;
 			
 			/* Iterate the 8 bins and add weighted contrib to each. */
-			//¼´ÏàÁÚµÄ x y ·½Ïò ¹²8¸ö bin 
-			//µü´úµÄÊµ¼ÊÉÏÊÇ¸ÃµãÓ°ÏìµÄbin
-			// xstride Ã¿Ò»ĞĞµÄÆ«ÒÆ
+			//å³ç›¸é‚»çš„ x y æ–¹å‘ å…±8ä¸ª bin 
+			//è¿­ä»£çš„å®é™…ä¸Šæ˜¯è¯¥ç‚¹å½±å“çš„bin
+			// xstride æ¯ä¸€è¡Œçš„åç§»
 			// ystride 
 			int const xstride = OHB;
 			int const ystride = OHB * PXB;
@@ -861,15 +861,15 @@ Sift::descriptor_assignment(Keypoint const& kp, Descriptor& desc,
 				for (int x = 0; x < 2; ++x)
 					for (int t = 0; t < 2; ++t)
 					{
-						//³¬³ö´°¿Ú
+						//è¶…å‡ºçª—å£
 						if (bxi[x] < 0 || bxi[x] >= PXB
 							|| byi[y] < 0 || byi[y] >= PXB)
 							continue;
 
-						//bxi[x] xµÄË÷Òı
-						//byi[y] yµÄË÷Òı
-						//bti[t] ·½ÏòµÄË÷Òı
-						//idxÖÖ×Ó·½ÏòµÄË÷Òı [0,127]
+						//bxi[x] xçš„ç´¢å¼•
+						//byi[y] yçš„ç´¢å¼•
+						//bti[t] æ–¹å‘çš„ç´¢å¼•
+						//idxç§å­æ–¹å‘çš„ç´¢å¼• [0,127]
 						int idx = bti[t] + bxi[x] * xstride + byi[y] * ystride;
 						desc.data[idx] += contrib * weights[0][x]
 							* weights[1][y] * weights[2][t];

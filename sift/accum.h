@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "functions.h"
 
@@ -9,7 +9,7 @@ namespace math
 {
 
 	/*
-		½öÖ§³Ö¸¡µãÀàĞÍºÍÎŞ·ûºÅchar
+		ä»…æ”¯æŒæµ®ç‚¹ç±»å‹å’Œæ— ç¬¦å·char
 	*/
 
 	template <typename T>
@@ -93,7 +93,7 @@ namespace math
 		return this->v / this->w;
 	}
 
-	/* ------------------------- ÌØÀı»¯ ----------------------- */
+	/* ------------------------- ç‰¹ä¾‹åŒ– ----------------------- */
 
 	template <>
 	class Accum<unsigned char>

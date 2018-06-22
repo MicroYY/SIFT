@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 
@@ -17,10 +17,10 @@ namespace image
 	};
 
 
-	/************************ Í¼ÏñÔØÈëºÍ±£´æ *************************/
+	/************************ å›¾åƒè½½å…¥å’Œä¿å­˜ *************************/
 	
 	/*
-		ÔØÈëÍ¼Æ¬
+		è½½å…¥å›¾ç‰‡
 	*/
 	ByteImage::Ptr
 		load_file(std::string const& filename);
@@ -29,8 +29,8 @@ namespace image
 	/************************* PNG *************************/
 
 	/*
-		ÔØÈëPNG
-		PNG£ºgray, gray-alpha, RGB, RGBA
+		è½½å…¥PNG
+		PNGï¼šgray, gray-alpha, RGB, RGBA
 	*/
 	ByteImage::Ptr
 		load_png_file(std::string const& filename);
@@ -40,8 +40,8 @@ namespace image
 	/************************* JPG *************************/
 
 	/*
-		ÔØÈëJPEG
-		JPEG£º µ¥Í¨µÀgray»òÈıÍ¨µÀRGB
+		è½½å…¥JPEG
+		JPEGï¼š å•é€šé“grayæˆ–ä¸‰é€šé“RGB
 	*/
 	ByteImage::Ptr
 		load_jpg_file(std::string const& filename, std::string* exif = nullptr);
