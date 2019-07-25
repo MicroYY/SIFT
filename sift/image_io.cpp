@@ -289,6 +289,60 @@ namespace image
 
 
 
+	void
+		save_jpg_file(ByteImage::ConstPtr image, std::string const& filename, int quality)
+	{
+		if (image == nullptr)
+			throw std::invalid_argument("Null image given");
+
+		if (image->channels() != 1 && image->channels() != 3)
+			throw std::exception("Invalid image color space");
+
+		FILE* fp = std::fopen(filename.c_str(), "wb");
+		if (!fp)
+			throw std::exception(filename.c_str());
+
+		struct jpeg_compress_struct cinfo;
+		struct jpeg_error_mgr jerr;
+
+		/* Setup error handler and info object. */
+		cinfo.err = jpeg_std_error(&jerr);
+		jpeg_create_compress(&cinfo);
+		jpeg_stdio_dest(&cinfo, fp);
+
+		/* Specify image dimensions. */
+		cinfo.image_width = image->width();
+		cinfo.image_height = image->height();
+		cinfo.input_components = image->channels();
+		switch (image->channels())
+		{
+		case 1: cinfo.in_color_space = JCS_GRAYSCALE; break;
+		case 3: cinfo.in_color_space = JCS_RGB; break;
+		default:
+		{
+			jpeg_destroy_compress(&cinfo);
+			std::fclose(fp);
+			throw std::exception("Invalid image color space");
+		}
+		}
+
+		/* Set default compression parameters. */
+		jpeg_set_defaults(&cinfo);
+		jpeg_set_quality(&cinfo, quality, TRUE);
+		jpeg_start_compress(&cinfo, TRUE);
+
+		ByteImage::ImageData const& data = image->get_data();
+		int row_stride = image->width() * image->channels();
+		while (cinfo.next_scanline < cinfo.image_height)
+		{
+			JSAMPROW row_pointer = const_cast<JSAMPROW>(
+				&data[cinfo.next_scanline * row_stride]);
+			jpeg_write_scanlines(&cinfo, &row_pointer, 1);
+		}
+		jpeg_finish_compress(&cinfo);
+		jpeg_destroy_compress(&cinfo);
+		std::fclose(fp);
+	}
 
 
 
